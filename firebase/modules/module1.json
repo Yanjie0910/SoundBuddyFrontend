@@ -1,0 +1,68 @@
+{
+  "moduleInfo": {
+    "moduleId": 1,
+    "moduleName": "Letter Sound Explorer",
+    "description": "Learn the sounds that letters make!",
+    "totalQuestions": 5,
+    "instructionTitle": "How to Play",
+    "instructions": [
+      "Listen carefully to the sound ",
+      "Place the correct letter block on the reader",
+      "You'll hear if you're right or need to try again!"
+    ],
+    "readyButtonText": "I'm Ready to Learn!"
+  },
+  
+  "questions": {
+    "q1": {
+      "questionId": "q1",
+      "questionNumber": 1,
+      "phonemeAudio": "a.mp3",
+      "visualCueImage": "apple.jpg",
+      "correctRFID": "585641647224",
+      "correctLetter": "a",
+      "hintText": "It's the first letter of the alphabet!",
+      "pointsValue": 10
+    },
+    "q2": {
+      "questionId": "q2",
+      "questionNumber": 2,
+      "phonemeAudio": "b.mp3",
+      "visualCueImage": "ball.png",
+      "correctRFID": "585633258495",
+      "correctLetter": "b",
+      "hintText": "It looks like a bat and ball!",
+      "pointsValue": 10
+    },
+    "q3": {
+      "questionId": "q3",
+      "questionNumber": 3,
+      "phonemeAudio": "c.mp3",
+      "visualCueImage": "cat.png",
+      "correctRFID": "585626969248",
+      "correctLetter": "c",
+      "hintText": "It's the third letter!",
+      "pointsValue": 10
+    },
+    "q4": {
+      "questionId": "q4",
+      "questionNumber": 4,
+      "phonemeAudio": "d.mp3",
+      "visualCueImage": "dog.png",
+      "correctRFID": "585640600407",
+      "correctLetter": "d",
+      "hintText": "It looks like 'b' but faces the other way!",
+      "pointsValue": 10
+    },
+    "q5": {
+      "questionId": "q5",
+      "questionNumber": 5,
+      "phonemeAudio": "e.mp3",
+      "visualCueImage": "egg.jpg",
+      "correctRFID": "585625918857",
+      "correctLetter": "e",
+      "hintText": "It's the fifth letter!",
+      "pointsValue": 10
+    }
+  }
+}

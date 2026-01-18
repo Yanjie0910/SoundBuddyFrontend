@@ -1,0 +1,12 @@
+:root {
+  --cream-bg: #ffffe0;
+  --soft-bg: #fffef0;
+  --hint-bg: #fff9d0;
+  --primary-border: #333333;
+  --primary-text: #333333;
+  --secondary-text: #555555;
+  --button-green: #5cb85c;
+  --button-green-hover: #4cae4c;
+  --button-text: #ffffff;
+  --danger: #d9534f;
+}

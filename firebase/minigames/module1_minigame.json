@@ -1,0 +1,32 @@
+{
+  "gameId": "sound_detective",
+  "gameName": "Sound Detective Challenge",
+  "moduleId": 1,
+  "description": "Match sounds to letters as fast as you can!",
+  "instructionTitle": "Mini-Game Time!",
+  "instructions": [
+    "You'll hear 8 different sounds 🔊",
+    "Match each sound to the correct letter",
+    "No hints this time!",
+    "Get 6 correct (75%) to earn your badge! 🏆"
+  ],
+  "totalQuestions": 8,
+  "passThreshold": 75,
+  "timeLimit": null,
+  "badgeAwarded": {
+    "badgeId": "sound_detective",
+    "badgeName": "Sound Detective",
+    "badgeEmoji": "🕵️",
+    "badgeDescription": "You're a master at matching sounds to letters!"
+  },
+  "questions": [
+    {"questionNumber": 1, "phoneme": "/æ/", "phonemeAudio": "phoneme_short_a.mp3", "correctRFID": "123456789012", "correctLetter": "a"},
+    {"questionNumber": 2, "phoneme": "/b/", "phonemeAudio": "phoneme_b.mp3", "correctRFID": "234567890123", "correctLetter": "b"},
+    {"questionNumber": 3, "phoneme": "/k/", "phonemeAudio": "phoneme_hard_c.mp3", "correctRFID": "345678901234", "correctLetter": "c"},
+    {"questionNumber": 4, "phoneme": "/d/", "phonemeAudio": "phoneme_d.mp3", "correctRFID": "456789012345", "correctLetter": "d"},
+    {"questionNumber": 5, "phoneme": "/ɛ/", "phonemeAudio": "phoneme_short_e.mp3", "correctRFID": "567890123456", "correctLetter": "e"},
+    {"questionNumber": 6, "phoneme": "/f/", "phonemeAudio": "phoneme_f.mp3", "correctRFID": "678901234567", "correctLetter": "f"},
+    {"questionNumber": 7, "phoneme": "/g/", "phonemeAudio": "phoneme_g.mp3", "correctRFID": "789012345678", "correctLetter": "g"},
+    {"questionNumber": 8, "phoneme": "/h/", "phonemeAudio": "phoneme_h.mp3", "correctRFID": "890123456789", "correctLetter": "h"}
+  ]
+}

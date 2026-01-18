@@ -1,0 +1,115 @@
+@import url('../../theme.css');
+
+.student-login-container {
+  max-width: 500px;
+  margin: 60px auto;
+  background: var(--soft-bg);
+  border-radius: 18px;
+  border: 3px solid var(--primary-border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.student-login-container h2 {
+  color: var(--primary-text);
+  margin-bottom: 1.5rem;
+}
+.student-login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.student-login-form input {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #bdbdbd;
+  font-size: 1rem;
+  outline: none;
+  background: var(--cream-bg);
+  color: var(--primary-text);
+}
+.student-login-form input:focus {
+  border: 1.5px solid var(--primary-border);
+}
+.picture-password-select {
+  margin: 1.2rem 0 0.5rem 0;
+}
+.picture-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+.pic-btn {
+  background: var(--cream-bg);
+  border: 2px solid var(--primary-border);
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+  font-size: 0.95rem;
+  min-width: 70px;
+}
+.pic-btn.selected, .pic-btn:disabled {
+  background: #e0e0e0;
+  border: 2px solid #bdbdbd;
+  cursor: not-allowed;
+}
+.pic-btn img {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 0.2rem;
+}
+.selected-pics {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.selected-pic img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 2px solid var(--primary-border);
+}
+.reset-btn {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-left: 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.reset-btn:hover {
+  background: #b52a2a;
+}
+.student-login-error {
+  color: var(--danger);
+  font-size: 1rem;
+  margin-top: 8px;
+}
+.student-login-form button[type="submit"] {
+  background: var(--button-green);
+  color: var(--button-text);
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+.student-login-form button[type="submit"]:hover {
+  background: var(--button-green-hover);
+}

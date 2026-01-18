@@ -1,0 +1,132 @@
+.instruction-screen {
+  min-height: 100vh;
+  /* BDA: Avoid white - use cream/soft pastel */
+  background-color: #ffffe0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.instruction-card {
+  /* BDA: Use cream/soft color, not white */
+  background: #fffef0;
+  border-radius: 20px;
+  /* BDA: Avoid cramping, space it out */
+  padding: 50px;
+  max-width: 800px;
+  width: 100%;
+  /* BDA: Boxes and borders for emphasis */
+  border: 4px solid #333333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.module-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.module-title h1 {
+  /* BDA: Larger font, bold, lower case */
+  font-size: 42px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.module-title h2 {
+  font-size: 32px;
+  color: #555555;
+  font-weight: bold;
+}
+
+.instructions {
+  margin: 40px 0;
+}
+
+.instructions h3 {
+  /* BDA: Headings in bold, larger size */
+  font-size: 28px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.instruction-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  /* BDA: Avoid cramping, space it out */
+  margin: 25px 0;
+  padding: 25px;
+  /* BDA: Boxes for emphasis */
+  background: #fff9d0;
+  border-radius: 15px;
+  border-left: 6px solid #333333;
+}
+
+.step-number {
+  /* BDA: Use bold for emphasis */
+  background: #333333;
+  color: #ffffe0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.instruction-item p {
+  /* BDA: Font size 12-14pt (20px for screen) */
+  font-size: 20px;
+  color: #333333;
+  line-height: 1.5;
+  margin: 0;
+  text-align: left;
+}
+
+.countdown {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.countdown p {
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.countdown strong {
+  font-size: 42px;
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.skip-button {
+  /* BDA: Clear, accessible buttons */
+  padding: 20px 40px;
+  font-size: 22px;
+  font-weight: bold;
+  background: #5cb85c;
+  color: #ffffff;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.skip-button:hover {
+  background: #4cae4c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(92, 184, 92, 0.3);
+}
+
+.skip-button:active {
+  transform: translateY(0);
+}

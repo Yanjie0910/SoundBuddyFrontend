@@ -1,0 +1,156 @@
+/* =========================
+   Global Reset
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Default Typography
+   Teacher / Parent
+   ========================= */
+body {
+  /* Plain, evenly spaced sans-serif for adult users */
+  font-family: Inter, Arial, sans-serif;
+
+  /* Font size 12–14pt (18–20px for screens) */
+  font-size: 18px;
+
+  /* Comfortable line spacing */
+  line-height: 1.5;
+
+  /* Dyslexia-friendly background */
+  background-color: #ffffe0;
+
+  /* Dark text on light background */
+  color: #333333;
+
+  /* Avoid cramping */
+  padding: 20px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================
+   Student Mode (Dyslexia)
+   ========================= */
+body.student-mode {
+  font-family: "OpenDyslexic", Inter, Arial, sans-serif;
+}
+
+/* Optional: keep headings clean even in student mode */
+body.student-mode h1,
+body.student-mode h2,
+body.student-mode h3,
+body.student-mode h4,
+body.student-mode h5,
+body.student-mode h6 {
+  font-family: Inter, Arial, sans-serif;
+}
+
+/* =========================
+   Headings
+   ========================= */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+h1 { font-size: 32px; }
+h2 { font-size: 28px; }
+h3 { font-size: 24px; }
+
+/* =========================
+   Text Emphasis
+   ========================= */
+strong, b {
+  font-weight: bold;
+}
+
+/* Avoid italics (recommended for dyslexia) */
+em, i {
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* =========================
+   Links
+   ========================= */
+a {
+  text-decoration: none;
+  color: #0066cc;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Lists
+   ========================= */
+ul, ol {
+  margin-left: 30px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+/* =========================
+   Paragraphs
+   ========================= */
+p {
+  margin-bottom: 16px;
+}
+
+/* =========================
+   Buttons
+   ========================= */
+button {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+
+  border: none;
+  border-radius: 10px;
+  padding: 15px 30px;
+
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================
+   Accessibility: Focus
+   ========================= */
+button:focus,
+a:focus,
+input:focus {
+  outline: 3px solid #0066cc;
+  outline-offset: 2px;
+}
+
+body.student-mode,
+body.student-mode * {
+  font-family: "OpenDyslexic", Inter, Arial, sans-serif !important;
+}

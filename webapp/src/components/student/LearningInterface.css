@@ -1,0 +1,286 @@
+@import url('../../theme.css');
+
+/* ============================================
+   LEARNING INTERFACE - DYSLEXIA FRIENDLY
+   Based on BDA Style Guide 2014
+   ============================================ */
+
+.learning-interface {
+  min-height: 100vh;
+  background-color: var(--cream-bg);
+  padding: 20px;
+}
+.learning-header {
+  background: var(--soft-bg);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 30px;
+  border: 3px solid var(--primary-border);
+}
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  /* BDA: Larger font */
+  font-size: 22px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 15px;
+}
+
+.progress-track {
+  height: 20px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #333333;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #5cb85c;
+  transition: width 0.5s ease;
+}
+
+.question-container {
+  background: var(--soft-bg);
+  border-radius: 30px;
+  padding: 60px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  border: 4px solid var(--primary-border);
+  text-align: center;
+  position: relative;
+}
+
+/* ============================================
+   MASSIVE SPEAKER BUTTON (Phase 1)
+   ============================================ */
+
+.discovery-mode {
+  text-align: center;
+}
+
+.massive-speaker-button {
+  background: #333333;
+  border: none;
+  border-radius: 50%;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 30px;
+  cursor: pointer;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.massive-speaker-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.massive-speaker-button:active {
+  transform: scale(1.05);
+}
+
+.massive-speaker-button .speaker-icon {
+  font-size: 120px;
+}
+
+/* ============================================
+   HINT MODE (Phase 2)
+   ============================================ */
+
+.hint-mode {
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hint-card {
+  background: #fff3cd;
+  border: 4px solid #ff9800;
+  border-radius: 25px;
+  padding: 40px;
+  margin: 30px auto;
+  max-width: 500px;
+}
+
+.real-photo-hint {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: 4px solid #333333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.mini-speaker-button {
+  background: #333333;
+  color: #ffffe0;
+  padding: 15px 30px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.mini-speaker-button:hover {
+  background: #555555;
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   ANSWER MODE (Phase 3)
+   ============================================ */
+
+.answer-mode {
+  text-align: center;
+  animation: glow 1.5s ease infinite;
+}
+
+@keyframes glow {
+  0%, 100% { 
+    filter: brightness(1);
+  }
+  50% { 
+    filter: brightness(1.2);
+  }
+}
+
+.big-letter-display {
+  font-size: 200px;
+  font-weight: bold;
+  color: #333333;
+  background: #fff3cd;
+  border: 8px solid #ff9800;
+  border-radius: 30px;
+  padding: 50px;
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(255, 152, 0, 0.5);
+}
+.answer-image {
+  max-width: 200px;      /* ✅ Limit width */
+  max-height: 200px;     /* ✅ Limit height */
+  width: auto;
+  height: auto;
+  object-fit: contain;   /* ✅ Keep aspect ratio */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: 3px solid #8e6c3f;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .big-letter-display {
+    font-size: 80px;
+  }
+  
+  .answer-image {
+    max-width: 150px;
+    max-height: 150px;
+  }
+}
+/* ============================================
+   FEEDBACK POPUP
+   ============================================ */
+
+.feedback-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 30px;
+  padding: 50px;
+  z-index: 1000;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  min-width: 400px;
+}
+
+.feedback-popup.feedback-correct {
+  border: 8px solid #5cb85c;
+}
+
+.feedback-popup.feedback-wrong {
+  border: 8px solid #d9534f;
+}
+
+.feedback-content {
+  text-align: center;
+}
+
+.feedback-icon {
+  font-size: 100px;
+  display: block;
+  margin-bottom: 20px;
+  animation: bounce 0.6s ease;
+}
+
+.feedback-popup p {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333333;
+  margin: 10px 0;
+}
+.feedback-points {
+  font-size: 32px;
+  color: #5cb85c;
+  font-weight: bold;
+  margin: 10px 0;
+}
+/* ============================================
+   WAITING INDICATOR
+   ============================================ */
+
+.pulse-circle {
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: 4px solid #333333;
+  border-radius: 50%;
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease;
+}
+
+.animate-pop {
+  animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-glow {
+  animation: glow 2s ease infinite;
+}

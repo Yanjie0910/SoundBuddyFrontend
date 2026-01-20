@@ -190,48 +190,47 @@ function LearningInterface() {
   }, [isTransitioning]);
 
   // ✅ INITIALIZE SESSION
-  useEffect(() => {
-    if (!session) return;
-    
-    const initializeSession = async () => {
-      if (!studentId || !teacherId) {
-        console.error('❌ Missing student or teacher ID!');
-        alert('Error: Please log in properly. Missing student/teacher information.');
-        navigate('/student-login');
+  // FIXED: INITIALIZE OR RESUME SESSION
+useEffect(() => {
+  if (!session || !database || !sessionPath) return;
+
+  const resumeOrInitializeSession = async () => {
+    if (!studentId || !teacherId) {
+      navigate('/student-login');
+      return;
+    }
+
+    const sessionRef = ref(database, sessionPath);
+    const snapshot = await get(sessionRef);
+
+    // RESUME if session exists
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      if (data.currentQuestion) {
+        loadQuestion(data.currentQuestion);
         return;
       }
-      
-      console.log('🚀 Initializing session...');
-      console.log('👤 Student ID:', studentId);
-      console.log('👨‍🏫 Teacher ID:', teacherId);
-      console.log('🏫 Class ID:', classId);
-      console.log('🔥 Firebase path:', sessionPath);
-      
-      if (database && sessionPath) {
-        try {
-          const sessionRef = ref(database, sessionPath);
-          await update(sessionRef, {
-            currentQuestion: 'q1',
-            showAnswer: false,
-            showHint: false,
-            totalPoints: 0,
-            lastAttempt: {
-              attemptNumber: 0,
-              isCorrect: false
-            },
-            startedAt: Date.now()
-          });
-          console.log('✅ Firebase session initialized at:', sessionPath);
-        } catch (error) {
-          console.error('❌ Failed to initialize Firebase:', error);
-        }
-      }
-      
-      loadQuestion('q1');
-    };
-    
-    initializeSession();
-  }, [session, studentId, teacherId, classId, database, sessionPath, loadQuestion, navigate]);
+    }
+
+    // INITIALIZE only if no session
+    await update(sessionRef, {
+      currentQuestion: 'q1',
+      showAnswer: false,
+      showHint: false,
+      totalPoints: 0,
+      lastAttempt: {
+        attemptNumber: 0,
+        isCorrect: false
+      },
+      startedAt: Date.now()
+    });
+
+    loadQuestion('q1');
+  };
+
+  resumeOrInitializeSession();
+}, [session, database, sessionPath, studentId, teacherId, navigate, loadQuestion]);
+
 
   // ✅ LISTEN TO FIREBASE
   useEffect(() => {
@@ -272,8 +271,8 @@ function LearningInterface() {
           } else {
             console.log('🎉 Module complete!');
             alert('🎉 Module 1 Complete!');
-            navigate('/student-dashboard');
-          }
+            navigate("/minigame/module1");
+           }
         }, 3000);
         return;  // ✅ Exit early, don't process other updates
       }

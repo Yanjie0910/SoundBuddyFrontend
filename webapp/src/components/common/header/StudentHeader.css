@@ -1,10 +1,11 @@
 .student-nav {
+  width: 100%; 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding: 18px 32px;
-  background-color: #8b6b3f; /* same brown family as teacher */
+  background-color: #8b6b3f; 
   color: white;
 
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);

@@ -1,4 +1,13 @@
-@import url('../theme.css');
+:root {
+  --cream-bg: #fef3e2;
+  --soft-bg: #ffffff;
+  --primary-text: #6b5744;
+  --primary-border: #8e6c3f;
+}
+
+.landing-container {
+  font-family: 'OpenDyslexic', system-ui, sans-serif;
+}
 
 .landing-container {
   min-height: 100vh;

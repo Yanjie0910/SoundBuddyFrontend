@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { database } from '../../firebase';
+import { database } from '../../../firebase';
 import { ref, get } from 'firebase/database';
 import './StudentLogin.css';
 
 const PICTURE_POOL = [
-  'cat','dog','apple','car','star','tree','fish','book','hat','ball',
-  'sun','moon','leaf','shoe','cup','bird','cake','bus','key','frog'
+  'kucing','anjing','epal','kereta','bintang',
+  'pokok','ikan','buku','topi','bola',
+  'pisang','bulan','daun','kasut','cawan',
+  'burung','kek','bas','kunci','katak'
 ];
 
 function StudentLogin() {
@@ -32,7 +34,7 @@ function StudentLogin() {
 
     try {
       const teachersSnap = await get(ref(database, 'teachers'));
-      if (!teachersSnap.exists()) throw new Error('No classes found');
+      if (!teachersSnap.exists()) throw new Error('Tiada kelas dijumpai');
 
       const teachers = teachersSnap.val();
       let teacherId = null;
@@ -53,14 +55,14 @@ function StudentLogin() {
         if (teacherId) break;
       }
 
-      if (!teacherId) throw new Error('Class not found');
+      if (!teacherId) throw new Error('Kelas tidak dijumpai');
 
       const studentsSnap = await get(
         ref(database, `teachers/${teacherId}/students`)
       );
 
       if (!studentsSnap.exists())
-        throw new Error('No students in this class');
+        throw new Error('Tiada pelajar dalam kelas ini');
 
       const students = studentsSnap.val();
       const entry = Object.entries(students).find(
@@ -69,7 +71,7 @@ function StudentLogin() {
           s.classId === classId
       );
 
-      if (!entry) throw new Error('Student not found');
+      if (!entry) throw new Error('Pelajar tidak dijumpai');
 
       const [studentId, student] = entry;
 
@@ -77,10 +79,10 @@ function StudentLogin() {
         JSON.stringify(student.picturePassword) !==
         JSON.stringify(selectedPics)
       ) {
-        throw new Error('Incorrect picture password');
+        throw new Error('Kata laluan gambar tidak betul');
       }
 
-      // ✅ SAVE SESSION (CRITICAL)
+      //  SAVE SESSION (CRITICAL)
       localStorage.setItem(
         'studentSession',
         JSON.stringify({
@@ -101,12 +103,12 @@ function StudentLogin() {
 
   return (
     <div className="student-login-container">
-      <h2>Student Login</h2>
+      <h2>Log Masuk Pelajar</h2>
 
       <form onSubmit={handleLogin} className="student-login-form">
         <input
           type="text"
-          placeholder="Student Name"
+          placeholder="Nama Pelajar"
           value={studentName}
           onChange={(e) => setStudentName(e.target.value)}
           required
@@ -114,13 +116,13 @@ function StudentLogin() {
 
         <input
           type="text"
-          placeholder="Class Name"
+          placeholder="Nama Kelas"
           value={className}
           onChange={(e) => setClassName(e.target.value)}
           required
         />
 
-        <p>Select your 3 pictures in order:</p>
+        <p>Pilih 3 gambar anda mengikut urutan:</p>
 
         <div className="picture-pool">
           {PICTURE_POOL.map((pic) => (
@@ -133,22 +135,22 @@ function StudentLogin() {
               onClick={() => handlePicClick(pic)}
               disabled={selectedPics.length >= 3}
             >
-              <img src={`/images/icons/${pic}.png`} alt={pic} />
-              {pic}
+              <img src={`/images/icons/${pic}.png`}  />
+              {pic.charAt(0).toUpperCase() + pic.slice(1)}
             </button>
           ))}
         </div>
 
         {selectedPics.length > 0 && (
           <button type="button" className="reset-btn" onClick={handleReset}>
-            Reset
+            Set Semula
           </button>
         )}
 
         {error && <div className="student-login-error">{error}</div>}
 
         <button type="submit" disabled={selectedPics.length !== 3 || loading}>
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? 'Sedang log masuk...' : 'Log Masuk'}
         </button>
       </form>
     </div>

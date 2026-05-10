@@ -1,7 +1,4 @@
 /* AuthForm.css - shared for login/signup */
-
-@import url('../../theme.css');
-
 .auth-container {
   max-width: 350px;
   margin: 60px auto;

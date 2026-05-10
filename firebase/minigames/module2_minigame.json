@@ -1,0 +1,79 @@
+{
+  "gameId": "misi_kata",
+  "gameName": "Misi Kata",
+  "moduleId": 2,
+  "description": "Bina perkataan dengan cepat dan tepat!",
+  "instructionTitle": "Misi Kata - Cabaran",
+  "instructions": [
+    "Anda akan melihat 8 gambar",
+    "Bina perkataan yang betul menggunakan blok huruf",
+    "Tiada petunjuk kali ini",
+    "Dapatkan sekurang-kurangnya 6 betul daripada 8 untuk menang"
+  ],
+  "totalQuestions": 8,
+  "passThreshold": 75,
+  "badgeAwarded": {
+    "badgeId": "misi_kata",
+    "badgeName": "Misi Kata",
+    "badgeEmoji": "",
+    "badgeDescription": "Pakar membina perkataan!"
+  },
+  "questions": [
+    {
+      "questionNumber": 1,
+      "word": "bas",
+      "wordAudio": "bas.mp3",
+      "visualCueImage": "bas.jpg",
+      "correctLetters": ["b", "a", "s"]
+    },
+    {
+      "questionNumber": 2,
+      "word": "cat",
+      "wordAudio": "cat_word.mp3",
+      "visualCueImage": "cat_paint.jpg",
+      "correctLetters": ["c", "a", "t"]
+    },
+    {
+      "questionNumber": 3,
+      "word": "dan",
+      "wordAudio": "dan.mp3",
+      "visualCueImage": "dan.jpg",
+      "correctLetters": ["d", "a", "n"]
+    },
+    {
+      "questionNumber": 4,
+      "word": "beg",
+      "wordAudio": "beg.mp3",
+      "visualCueImage": "beg.jpg",
+      "correctLetters": ["b", "e", "g"]
+    },
+    {
+      "questionNumber": 5,
+      "word": "jus",
+      "wordAudio": "jus.mp3",
+      "visualCueImage": "jus.jpg",
+      "correctLetters": ["j", "u", "s"]
+    },
+    {
+      "questionNumber": 6,
+      "word": "api",
+      "wordAudio": "api.mp3",
+      "visualCueImage": "api.jpg",
+      "correctLetters": ["a", "p", "i"]
+    },
+    {
+      "questionNumber": 7,
+      "word": "ekor",
+      "wordAudio": "ekor.mp3",
+      "visualCueImage": "ekor.jpg",
+      "correctLetters": ["e", "k", "o", "r"]
+    },
+    {
+      "questionNumber": 8,
+      "word": "ikan",
+      "wordAudio": "ikan.mp3",
+      "visualCueImage": "ikan.jpg",
+      "correctLetters": ["i", "k", "a", "n"]
+    }
+  ]
+}

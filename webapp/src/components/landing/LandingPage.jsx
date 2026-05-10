@@ -7,7 +7,7 @@ function LandingPage() {
 
   return (
     <div className="landing-container">
-      <h1>Welcome to SoundBuddy!</h1>
+      <h1>Selamat Datang ke RakanBunyi!</h1>
 
       <div className="role-cards">
         {/* Student */}
@@ -20,7 +20,7 @@ function LandingPage() {
           }}
         >
           <img src="/images/objects/student.png" alt="Student" />
-          <h2>I'm a Student</h2>
+          <h2>Saya Seorang Pelajar</h2>
         </div>
 
         {/* Teacher */}
@@ -33,7 +33,7 @@ function LandingPage() {
           }}
         >
           <img src="/images/objects/teacher.png" alt="Teacher" />
-          <h2>I'm a Teacher</h2>
+          <h2>Saya Seorang Guru</h2>
         </div>
 
         {/* Parent */}
@@ -46,7 +46,7 @@ function LandingPage() {
           }}
         >
           <img src="/images/objects/parent.png" alt="Parent" />
-          <h2>I'm a Parent</h2>
+          <h2>Saya Seorang Ibu Bapa</h2>
         </div>
       </div>
     </div>

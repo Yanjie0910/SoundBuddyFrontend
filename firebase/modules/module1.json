@@ -1,67 +1,67 @@
 {
   "moduleInfo": {
     "moduleId": 1,
-    "moduleName": "Letter Sound Explorer",
-    "description": "Learn the sounds that letters make!",
+    "moduleName": "Bunyi Huruf",
+    "description": "Belajar bunyi yang dihasilkan oleh huruf!",
     "totalQuestions": 5,
-    "instructionTitle": "How to Play",
+    "instructionTitle": "Cara Bermain",
     "instructions": [
-      "Listen carefully to the sound ",
-      "Place the correct letter block on the reader",
-      "You'll hear if you're right or need to try again!"
+      "Dengar bunyi dengan teliti",
+      "Letakkan blok huruf yang betul pada pembaca",
+      "Anda akan tahu sama ada betul atau perlu cuba lagi!"
     ],
-    "readyButtonText": "I'm Ready to Learn!"
+    "readyButtonText": "Saya Bersedia!"
   },
-  
+
   "questions": {
     "q1": {
       "questionId": "q1",
       "questionNumber": 1,
       "phonemeAudio": "a.mp3",
-      "visualCueImage": "apple.jpg",
+      "visualCueImage": "epal.jpg",
       "correctRFID": "585641647224",
       "correctLetter": "a",
-      "hintText": "It's the first letter of the alphabet!",
+      "hintText": "Ini huruf pertama dalam abjad!",
       "pointsValue": 10
     },
     "q2": {
       "questionId": "q2",
       "questionNumber": 2,
       "phonemeAudio": "b.mp3",
-      "visualCueImage": "ball.png",
+      "visualCueImage": "bola.png",
       "correctRFID": "585633258495",
       "correctLetter": "b",
-      "hintText": "It looks like a bat and ball!",
+      "hintText": "Seperti 'bola'!",
       "pointsValue": 10
     },
     "q3": {
       "questionId": "q3",
       "questionNumber": 3,
       "phonemeAudio": "c.mp3",
-      "visualCueImage": "cat.png",
+      "visualCueImage": "kucing.png",
       "correctRFID": "585626969248",
       "correctLetter": "c",
-      "hintText": "It's the third letter!",
+      "hintText": "Seperti bunyi 'kucing'!",
       "pointsValue": 10
     },
     "q4": {
       "questionId": "q4",
       "questionNumber": 4,
       "phonemeAudio": "d.mp3",
-      "visualCueImage": "dog.png",
+      "visualCueImage": "anjing.png",
       "correctRFID": "585640600407",
       "correctLetter": "d",
-      "hintText": "It looks like 'b' but faces the other way!",
+      "hintText": "Seperti bunyi 'anjing'!",
       "pointsValue": 10
     },
     "q5": {
       "questionId": "q5",
       "questionNumber": 5,
       "phonemeAudio": "e.mp3",
-      "visualCueImage": "egg.jpg",
+      "visualCueImage": "telur.jpg",
       "correctRFID": "585625918857",
       "correctLetter": "e",
-      "hintText": "It's the fifth letter!",
+      "hintText": "Seperti bunyi 'telur'!",
       "pointsValue": 10
     }
   }

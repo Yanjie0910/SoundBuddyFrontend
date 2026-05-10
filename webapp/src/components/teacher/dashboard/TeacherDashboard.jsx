@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, database } from '../../firebase';
+import { auth, database } from '../../../firebase';
 import { ref, push, onValue, get, update } from 'firebase/database';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import './TeacherDashboard.css';
 
 const PICTURE_POOL = [
-  'cat', 'dog', 'apple', 'car', 'star', 'tree', 'fish', 'book', 'hat', 'ball',
-  'sun', 'moon', 'leaf', 'shoe', 'cup', 'bird', 'cake', 'bus', 'key', 'frog'
+  'kucing','anjing','epal','kereta','bintang',
+  'pokok','ikan','buku','topi','bola',
+  'pisang','bulan','daun','kasut','cawan',
+  'burung','kek','bas','kunci','katak'
 ];
 
 function getRandomPicturePassword() {
@@ -258,37 +260,37 @@ function TeacherDashboard() {
       {/* TOP NAVIGATION */}
       <nav className="dashboard-nav">
         <div className="nav-brand">
-          <h1>🎓 SoundBuddy Teacher Portal</h1>
+          <h1>Portal Guru RakanBunyi</h1>
         </div>
         <div className="nav-tabs">
           <button 
             className={activeTab === 'overview' ? 'active' : ''}
             onClick={() => setActiveTab('overview')}
           >
-            📊 Overview
+            Gambaran Keseluruhan
           </button>
           <button 
             className={activeTab === 'students' ? 'active' : ''}
             onClick={() => setActiveTab('students')}
           >
-            👥 Students
+            Pelajar
           </button>
           <button 
             className={activeTab === 'analytics' ? 'active' : ''}
             onClick={() => setActiveTab('analytics')}
           >
-            📈 Analytics
+            Analitik
           </button>
           <button 
             className={activeTab === 'sessions' ? 'active' : ''}
             onClick={() => setActiveTab('sessions')}
           >
-            📋 Sessions
+            Sesi
           </button>
         </div>
         <div className="nav-user">
-          <span>👤 {user.email}</span>
-          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+          <span> {user.email}</span>
+          <button className="logout-btn" onClick={handleLogout}>Log Keluar</button>
         </div>
       </nav>
 
@@ -297,14 +299,14 @@ function TeacherDashboard() {
         {/* OVERVIEW TAB */}
         {activeTab === 'overview' && (
           <div className="tab-content">
-            <h2>📊 Dashboard Overview</h2>
+            <h2> Gambaran Keseluruhan</h2>
             
             <div className="stats-grid">
               <div className="stat-card">
                 <div className="stat-icon">👥</div>
                 <div className="stat-info">
                   <div className="stat-value">{students.length}</div>
-                  <div className="stat-label">Total Students</div>
+                  <div className="stat-label">Jumlah Pelajar</div>
                 </div>
               </div>
               
@@ -312,7 +314,7 @@ function TeacherDashboard() {
                 <div className="stat-icon">🏫</div>
                 <div className="stat-info">
                   <div className="stat-value">{classrooms.length}</div>
-                  <div className="stat-label">Classrooms</div>
+                  <div className="stat-label">Kelas</div>
                 </div>
               </div>
               
@@ -320,7 +322,7 @@ function TeacherDashboard() {
                 <div className="stat-icon">📚</div>
                 <div className="stat-info">
                   <div className="stat-value">{stats.totalSessions}</div>
-                  <div className="stat-label">Total Sessions</div>
+                  <div className="stat-label">Jumlah Sesi</div>
                 </div>
               </div>
               
@@ -328,35 +330,36 @@ function TeacherDashboard() {
                 <div className="stat-icon">⭐</div>
                 <div className="stat-info">
                   <div className="stat-value">{stats.avgScore}</div>
-                  <div className="stat-label">Avg Score (out of 75)</div>
+                  <div className="stat-label">Skor Purata (daripada 75)</div>
                 </div>
               </div>
             </div>
 
             {strugglingStudents.length > 0 && (
               <div className="alert-box">
-                <h3>⚠️ Students Needing Attention</h3>
+                 <h3>⚠️ Pelajar Memerlukan Perhatian</h3>
                 <ul>
                   {strugglingStudents.map((s, idx) => (
                     <li key={idx}>
-                      <strong>{s.name}</strong> - {s.accuracy}% accuracy ({s.sessions} sessions)
+                      <strong>{s.name}</strong> - {s.accuracy}% ketepatan({s.sessions} sessions)
                     </li>
                   ))}
                 </ul>
-                <p className="recommendation">💡 Schedule 1-on-1 support sessions</p>
+                <p className="recommendation">💡 Jadualkan sesi bimbingan individu
+</p>
               </div>
             )}
 
             <div className="quick-actions">
-              <h3>Quick Actions</h3>
+              <h3>Tindakan Pantas</h3>
               <button onClick={() => setActiveTab('students')} className="action-btn">
-                ➕ Add New Student
+                ➕ Tambah Pelajar Baharu
               </button>
               <button onClick={() => setActiveTab('analytics')} className="action-btn">
-                📊 View Analytics
+                📊 Lihat Analitik
               </button>
               <button onClick={() => setActiveTab('sessions')} className="action-btn">
-                📋 View All Sessions
+                📋 Lihat Semua Sesi
               </button>
             </div>
           </div>
@@ -365,27 +368,27 @@ function TeacherDashboard() {
         {/* STUDENTS TAB */}
         {activeTab === 'students' && (
           <div className="tab-content">
-            <h2>👥 Student Management</h2>
+            <h2>Pengurusan Pelajar</h2>
 
             <div className="form-section">
-              <h3>Create Classroom</h3>
+              <h3>Cipta Kelas</h3>
               <form onSubmit={handleAddClassroom} className="inline-form">
                 <input
                   type="text"
-                  placeholder="Classroom Name (e.g., Grade 1A)"
+                  placeholder="Nama Kelas (contoh: Tahun 1A)"
                   value={className}
                   onChange={(e) => setClassName(e.target.value)}
                 />
-                <button type="submit">Add Classroom</button>
+                <button type="submit">Tambah Kelas</button>
               </form>
             </div>
 
             <div className="form-section">
-              <h3>Add Student</h3>
+              <h3>Tambah Pelajar</h3>
               <form onSubmit={handleAddStudent} className="student-form">
                 <input
                   type="text"
-                  placeholder="Student Name"
+                  placeholder="Nama Pelajar"
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                 />
@@ -393,26 +396,27 @@ function TeacherDashboard() {
                   value={selectedClass}
                   onChange={(e) => setSelectedClass(e.target.value)}
                 >
-                  <option value="">Select Classroom</option>
+                  <option value="">Pilih Kelas</option>
                   {classrooms.map((c) => (
                     <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
                 </select>
                 <input
                   type="email"
-                  placeholder="Parent Email (optional)"
+                  placeholder="Emel Ibu Bapa (pilihan)"
                   value={parentEmail}
                   onChange={(e) => setParentEmail(e.target.value)}
                 />
-                <button type="submit">Add Student</button>
+                <button type="submit">Tambah Pelajar</button>
               </form>
               {error && <div className="error-message">{error}</div>}
             </div>
 
             <div className="students-list">
-              <h3>All Students ({students.length})</h3>
+              <h3>Senarai Pelajar ({students.length})</h3>
               {students.length === 0 ? (
-                <p className="empty-state">No students yet. Add your first student above!</p>
+                <p className="empty-state">Belum ada pelajar. Tambah pelajar pertama anda di atas!
+</p>
               ) : (
                 <div className="students-grid">
                   {students.map((s) => (
@@ -424,14 +428,14 @@ function TeacherDashboard() {
                         </span>
                       </div>
                       <div className="student-details">
-                        <p><strong>🔑 Picture Password:</strong></p>
+                        <p><strong>🔑Kata Laluan Gambar:</strong></p>
                         <div className="password-pictures">
                           {s.picturePassword?.map((pic, i) => (
                             <span key={i} className="picture-badge">{pic}</span>
                           ))}
                         </div>
                         {s.parentEmail && (
-                          <p><strong>📧 Parent:</strong> {s.parentEmail}</p>
+                          <p><strong>📧 Ibu Bapa:</strong> {s.parentEmail}</p>
                         )}
                       </div>
                     </div>
@@ -445,21 +449,21 @@ function TeacherDashboard() {
         {/* ANALYTICS TAB */}
         {activeTab === 'analytics' && (
           <div className="tab-content">
-            <h2>📈 Performance Analytics</h2>
+            <h2> Analisis Prestasi</h2>
 
             <div className="analytics-grid">
               <div className="analytics-card">
-                <h3>📚 Most Challenging Questions</h3>
+                <h3>Soalan Paling Mencabar</h3>
                 {challengingQuestions.length === 0 ? (
-                  <p className="empty-state">No session data yet</p>
+                  <p className="empty-state">Tiada sesi dijumpai</p>
                 ) : (
                   <table className="analytics-table">
                     <thead>
                       <tr>
-                        <th>Question</th>
-                        <th>Letter</th>
-                        <th>Avg Attempts</th>
-                        <th>Accuracy</th>
+                        <th>Soalan</th>
+                        <th>Huruf</th>
+                        <th>Purata Cubaan</th>
+                        <th>Ketepatan</th>
                         <th>Status</th>
                       </tr>
                     </thead>
@@ -485,7 +489,7 @@ function TeacherDashboard() {
               </div>
 
               <div className="analytics-card">
-                <h3>📊 Class Performance Distribution</h3>
+                <h3> Taburan Prestasi Kelas</h3>
                 <div className="performance-bars">
                   <div className="perf-bar">
                     <span>90-100%:</span>
@@ -512,41 +516,41 @@ function TeacherDashboard() {
         {/* SESSIONS TAB */}
         {activeTab === 'sessions' && (
           <div className="tab-content">
-            <h2>📋 Session History</h2>
+            <h2> Sesi Histori</h2>
 
             <div className="filter-buttons">
               <button 
                 className={activeFilter === 'all' ? 'active' : ''}
                 onClick={() => setActiveFilter('all')}
               >
-                All Time
+                Sepanjang Masa
               </button>
               <button 
                 className={activeFilter === 'today' ? 'active' : ''}
                 onClick={() => setActiveFilter('today')}
               >
-                Today
+                Hari Ini
               </button>
               <button 
                 className={activeFilter === 'week' ? 'active' : ''}
                 onClick={() => setActiveFilter('week')}
               >
-                This Week
+                Minggu Ini
               </button>
             </div>
 
             <div className="sessions-table-container">
               {filteredSessions.length === 0 ? (
-                <p className="empty-state">No sessions found</p>
+                <p className="empty-state">Tiada sesi dijumpai</p>
               ) : (
                 <table className="sessions-table">
                   <thead>
                     <tr>
-                      <th>Date & Time</th>
-                      <th>Student</th>
-                      <th>Points</th>
-                      <th>Accuracy</th>
-                      <th>Actions</th>
+                      <th>Tarikh & Masa</th>
+                      <th>Pelajar</th>
+                      <th>Mata</th>
+                      <th>Ketepatan</th>
+                      <th>Tindakan</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -563,7 +567,7 @@ function TeacherDashboard() {
                               className="view-btn"
                               onClick={() => setSelectedSession({ id: sessionId, data: session })}
                             >
-                              View Details
+                              Lihat Butiran
                             </button>
                           </td>
                         </tr>
@@ -582,30 +586,30 @@ function TeacherDashboard() {
         <div className="modal-overlay" onClick={() => setSelectedSession(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>📋 Session Details</h2>
+              <h2>Butiran Sesi</h2>
               <button className="close-btn" onClick={() => setSelectedSession(null)}>✕</button>
             </div>
             
             <div className="modal-body">
               <div className="session-info-box">
-                <p><strong>Student:</strong> {students.find(s => s.id === selectedSession.data.studentId)?.name || 'Unknown'}</p>
-                <p><strong>Date:</strong> {new Date(selectedSession.data.startTime).toLocaleString()}</p>
-                <p><strong>Points:</strong> {selectedSession.data.totalPoints}/75</p>
-                <p><strong>Accuracy:</strong> {calculateAccuracy(selectedSession.data.attempts)}%</p>
+                <p><strong>Pelajar:</strong> {students.find(s => s.id === selectedSession.data.studentId)?.name || 'Unknown'}</p>
+                <p><strong>Tarikh:</strong> {new Date(selectedSession.data.startTime).toLocaleString()}</p>
+                <p><strong>Mata:</strong> {selectedSession.data.totalPoints}/75</p>
+                <p><strong>Ketepatan:</strong> {calculateAccuracy(selectedSession.data.attempts)}%</p>
               </div>
 
-              <h3>Attempt Log:</h3>
+              <h3>Log Percubaan:</h3>
               <div className="attempts-log">
                 <table>
                   <thead>
                     <tr>
-                      <th>Time</th>
-                      <th>Question</th>
-                      <th>Scanned</th>
-                      <th>Expected</th>
-                      <th>Result</th>
-                      <th>Attempt #</th>
-                      <th>Points</th>
+                      <th>Masa</th>
+                      <th>Soalan</th>
+                      <th>Imbas</th>
+                      <th>Sepatutnya</th>
+                      <th>Keputusan</th>
+                      <th>Cubaan</th>
+                      <th>Mata</th>
                     </tr>
                   </thead>
                   <tbody>

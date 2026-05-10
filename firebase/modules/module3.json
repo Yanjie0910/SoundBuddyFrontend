@@ -1,0 +1,140 @@
+{
+  "moduleInfo": {
+    "moduleId": 3,
+    "moduleName": "Keluarga Kata",
+    "description": "Kenali corak rima perkataan Bahasa Melayu!",
+    "totalQuestions": 5,
+    "instructionTitle": "Cara Main",
+    "instructions": [
+      "Lihat perkataan asas",
+      "Dengar bunyi perkataan baru",
+      "Tukar huruf pertama untuk membentuk perkataan berima"
+    ],
+    "readyButtonText": "Saya Bersedia!"
+  },
+
+  "questions": {
+
+    "q1": {
+      "questionId": "q1",
+      "questionNumber": 1,
+
+      "baseWord": "bak",
+      "rhymePattern": "ak",
+
+      "wordAudio": "pak.mp3",
+      "visualCueImage": "pak.jpg",
+
+      "acceptedAnswers": [
+        {
+          "letter": "p",
+          "word": "pak",
+          "rfid": "585633243268"
+        },
+        {
+          "letter": "k",
+          "word": "kak",
+          "rfid": "585632194708"
+        }
+      ],
+
+      "hintText": "Cari perkataan yang mempunyai bunyi '-ak'.",
+      "pointsValue": 15
+    },
+
+    "q2": {
+      "questionId": "q2",
+      "questionNumber": 2,
+
+      "baseWord": "bata",
+      "rhymePattern": "ata",
+
+      "wordAudio": "mata.mp3",
+      "visualCueImage": "mata.jpg",
+
+      "acceptedAnswers": [
+        {
+          "letter": "m",
+          "word": "mata",
+          "rfid": "585633239991"
+        },
+        {
+          "letter": "k",
+          "word": "kata",
+          "rfid": "585632194708"
+        }
+      ],
+
+      "hintText": "Cari perkataan yang mempunyai bunyi '-ata'.",
+      "pointsValue": 15
+    },
+
+    "q3": {
+      "questionId": "q3",
+      "questionNumber": 3,
+
+      "baseWord": "buku",
+      "rhymePattern": "uku",
+
+      "wordAudio": "suku.mp3",
+      "visualCueImage": "suku.jpg",
+
+      "acceptedAnswers": [
+        {
+          "letter": "s",
+          "word": "suku",
+          "rfid": "585639551847"
+        }
+      ],
+
+      "hintText": "Cari perkataan yang mempunyai bunyi '-uku'.",
+      "pointsValue": 15
+    },
+
+    "q4": {
+      "questionId": "q4",
+      "questionNumber": 4,
+
+      "baseWord": "buah",
+      "rhymePattern": "uah",
+
+      "wordAudio": "kuah.mp3",
+      "visualCueImage": "kuah.jpg",
+
+      "acceptedAnswers": [
+        {
+          "letter": "k",
+          "word": "kuah",
+          "rfid": "585632194708"
+        }
+      ],
+
+      "hintText": "Cari perkataan yang mempunyai bunyi '-uah'.",
+      "pointsValue": 15
+    },
+
+    "q5": {
+      "questionId": "q5",
+      "questionNumber": 5,
+
+      "baseWord": "baju",
+      "rhymePattern": "aju",
+
+      "wordAudio": "laju.mp3",
+      "visualCueImage": "laju.jpg",
+
+      "acceptedAnswers": [
+        {
+          "letter": "l",
+          "word": "laju",
+          "rfid": "585638532802"
+        }
+      ],
+
+      "hintText": "Cari perkataan yang mempunyai bunyi '-aju'.",
+      "pointsValue": 15
+    }
+
+  }
+}
+

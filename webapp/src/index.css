@@ -16,7 +16,7 @@ body {
   font-family: Inter, Arial, sans-serif;
 
   /* Font size 12–14pt (18–20px for screens) */
-  font-size: 18px;
+  font-size: 16px;
 
   /* Comfortable line spacing */
   line-height: 1.5;
@@ -28,7 +28,7 @@ body {
   color: #333333;
 
   /* Avoid cramping */
-  padding: 20px;
+  padding: 0;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

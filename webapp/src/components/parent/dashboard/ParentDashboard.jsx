@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, database } from '../../firebase';
+import { auth, database } from '../../../firebase';
 import { ref, onValue } from 'firebase/database';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import './ParentDashboard.css';
@@ -182,7 +182,7 @@ function ParentDashboard() {
   if (loading) {
     return (
       <div className="parent-dashboard-wrapper">
-        <div className="loading-parent">Loading...</div>
+        <div className="loading-parent">Sedang memuatkan...</div>
       </div>
     );
   }
@@ -191,13 +191,13 @@ function ParentDashboard() {
     return (
       <div className="parent-dashboard-wrapper">
         <nav className="parent-nav">
-          <h1>👨‍👩‍👧 SoundBuddy Parent Portal</h1>
+          <h1>👨‍👩 SoundBuddy Parent Portal</h1>
           <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </nav>
         <div className="empty-parent">
-          <h2>No Children Found</h2>
-          <p>Your email ({user?.email}) is not linked to any student accounts yet.</p>
-          <p>Please contact your child's teacher to link your account.</p>
+          <h2>Tiada Rekod Anak Dijumpai</h2>
+         <p>Emel anda ({user?.email}) belum dipautkan kepada mana-mana akaun pelajar.</p>
+<p>Sila hubungi guru anak anda untuk membuat pemautan akaun.</p>
         </div>
       </div>
     );
@@ -214,11 +214,11 @@ function ParentDashboard() {
       {/* TOP NAV */}
       <nav className="parent-nav">
         <div className="nav-left">
-          <h1>👨‍👩‍👧 SoundBuddy Parent Portal</h1>
+          <h1> Portal Ibu Bapa RakanBunyi</h1>
         </div>
         <div className="nav-right">
-          <span className="parent-email">📧 {user?.email}</span>
-          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+          <span className="parent-email"> {user?.email}</span>
+          <button className="logout-btn" onClick={handleLogout}>Log Keluar</button>
         </div>
       </nav>
 
@@ -227,7 +227,7 @@ function ParentDashboard() {
         {/* CHILD SELECTOR */}
         {children.length > 1 && (
           <div className="child-selector">
-            <label>Viewing progress for:</label>
+            <label>Melihat perkembangan untuk:</label>
             <select 
               value={selectedChild?.id} 
               onChange={(e) => setSelectedChild(children.find(c => c.id === e.target.value))}
@@ -246,7 +246,7 @@ function ParentDashboard() {
           </div>
           <div className="child-info">
             <h2>{selectedChild?.name}</h2>
-            <p className="child-class">Class: {selectedChild?.classId || 'Not assigned'}</p>
+<p className="child-class">Kelas: {selectedChild?.classId || 'Belum ditetapkan'}</p>
           </div>
         </div>
 
@@ -256,7 +256,7 @@ function ParentDashboard() {
             <div className="stat-icon">📚</div>
             <div className="stat-details">
               <div className="stat-number">{stats.totalSessions}</div>
-              <div className="stat-text">Sessions Completed</div>
+              <div className="stat-text">Sesi Selesai</div>
             </div>
           </div>
 
@@ -264,7 +264,7 @@ function ParentDashboard() {
             <div className="stat-icon">⭐</div>
             <div className="stat-details">
               <div className="stat-number">{stats.totalPoints}</div>
-              <div className="stat-text">Total Points Earned</div>
+              <div className="stat-text">Jumlah Mata Diperoleh</div>
             </div>
           </div>
 
@@ -272,7 +272,7 @@ function ParentDashboard() {
             <div className="stat-icon">📊</div>
             <div className="stat-details">
               <div className="stat-number">{stats.avgScore}/75</div>
-              <div className="stat-text">Average Score</div>
+              <div className="stat-text">Skor Purata</div>
             </div>
           </div>
 
@@ -280,7 +280,7 @@ function ParentDashboard() {
             <div className="stat-icon">🎯</div>
             <div className="stat-details">
               <div className="stat-number">{stats.accuracy}%</div>
-              <div className="stat-text">Overall Accuracy</div>
+              <div className="stat-text">Ketepatan Keseluruhan</div>
             </div>
           </div>
         </div>
@@ -294,8 +294,8 @@ function ParentDashboard() {
             {/* STRENGTHS */}
             {strongLetters.length > 0 && (
               <div className="parent-card success-card">
-                <h3>✨ Strengths</h3>
-                <p className="card-subtitle">Letters your child has mastered!</p>
+                <h3>✨ Kekuatan</h3>
+                <p className="card-subtitle">Huruf yang telah dikuasai oleh anak anda!</p>
                 <div className="letter-badges">
                   {strongLetters.map((l, idx) => (
                     <div key={idx} className="letter-badge success">
@@ -310,8 +310,8 @@ function ParentDashboard() {
             {/* AREAS TO PRACTICE */}
             {strugglingLetters.length > 0 && (
               <div className="parent-card warning-card">
-                <h3>💡 Areas to Practice</h3>
-                <p className="card-subtitle">Letters that need more practice at home</p>
+                <h3>💡 Perlu Lebih Latihan</h3>
+                <p className="card-subtitle">Huruf yang perlu lebih latihan di rumah</p>
                 <div className="practice-list">
                   {strugglingLetters.map((l, idx) => (
                     <div key={idx} className="practice-item">
@@ -323,23 +323,23 @@ function ParentDashboard() {
                             style={{ width: `${l.accuracy}%` }}
                           ></div>
                         </div>
-                        <span className="practice-text">{l.accuracy}% accuracy</span>
+                        <span className="practice-text">{l.accuracy}% ketepatan</span>
                       </div>
                     </div>
                   ))}
                 </div>
                 <div className="practice-tip">
-                  <strong>💭 Tip:</strong> Try practicing these letters with flashcards or 
-                  playing "I Spy" at home with words that start with these sounds!
+                  <strong>💭 Tip:</strong>  Cuba latih huruf-huruf ini menggunakan kad imbas atau bermain
+"I Spy" di rumah dengan perkataan yang bermula dengan bunyi tersebut.
                 </div>
               </div>
             )}
 
             {/* RECENT ACTIVITY */}
             <div className="parent-card">
-              <h3>📅 Recent Activity</h3>
+              <h3> Aktiviti Terkini</h3>
               {childSessions.length === 0 ? (
-                <p className="empty-text">No sessions yet</p>
+                <p className="empty-text">Belum ada sesi dijalankan</p>
               ) : (
                 <div className="activity-list">
                   {childSessions.slice(0, 5).map(([sessionId, session]) => (
@@ -356,13 +356,13 @@ function ParentDashboard() {
                       </div>
                       <div className="activity-details">
                         <div className="activity-score">
-                          <strong>{session.totalPoints}/75</strong> points
+                          <strong>{session.totalPoints}/75</strong> mata
                         </div>
                         <div className="activity-accuracy">
-                          {calculateAccuracy(session.attempts)}% accuracy
+                          {calculateAccuracy(session.attempts)}% ketepatan
                         </div>
                       </div>
-                      <button className="activity-view">View</button>
+                      <button className="activity-view">Lihat</button>
                     </div>
                   ))}
                 </div>
@@ -376,7 +376,7 @@ function ParentDashboard() {
             
             {/* PROGRESS CHART */}
             <div className="parent-card">
-              <h3>📈 Progress Over Time</h3>
+              <h3> Perkembangan Mengikut Masa</h3>
               <div className="progress-chart">
                 {childSessions.slice(0, 10).reverse().map(([id, session], idx) => {
                   const percentage = (session.totalPoints / 75) * 100;
@@ -396,42 +396,42 @@ function ParentDashboard() {
                 })}
               </div>
               {childSessions.length === 0 && (
-                <p className="empty-chart">No data yet. Progress will show here after completing sessions.</p>
+<p>Tiada data buat masa ini. Perkembangan akan dipaparkan selepas sesi selesai.</p>
               )}
             </div>
 
             {/* ACHIEVEMENTS */}
             <div className="parent-card achievements-card">
-              <h3>🏆 Achievements</h3>
+<h3>Pencapaian</h3>
               <div className="achievements-grid">
                 {stats.totalSessions >= 1 && (
                   <div className="achievement unlocked">
                     <div className="achievement-icon">🎯</div>
-                    <div className="achievement-name">First Steps</div>
+                    <div className="achievement-name">Langkah Pertama</div>
                   </div>
                 )}
                 {stats.totalSessions >= 5 && (
                   <div className="achievement unlocked">
                     <div className="achievement-icon">⭐</div>
-                    <div className="achievement-name">Star Learner</div>
+                    <div className="achievement-name">Pelajar Cemerlang</div>
                   </div>
                 )}
                 {stats.accuracy >= 90 && (
                   <div className="achievement unlocked">
                     <div className="achievement-icon">🎓</div>
-                    <div className="achievement-name">Accuracy Master</div>
+                    <div className="achievement-name">Pelajar Cemerlang</div>
                   </div>
                 )}
                 {strongLetters.length >= 5 && (
                   <div className="achievement unlocked">
                     <div className="achievement-icon">🔥</div>
-                    <div className="achievement-name">Letter Expert</div>
+                    <div className="achievement-name">Pakar Huruf</div>
                   </div>
                 )}
                 {stats.totalSessions < 1 && (
                   <div className="achievement locked">
                     <div className="achievement-icon">🔒</div>
-                    <div className="achievement-name">Keep Learning!</div>
+                    <div className="achievement-name">Teruskan Pembelajaran!</div>
                   </div>
                 )}
               </div>
@@ -447,27 +447,27 @@ function ParentDashboard() {
         <div className="modal-overlay" onClick={() => setSelectedSession(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>📋 Session Details</h2>
+              <h2>📋Butiran Sesi</h2>
               <button className="close-btn" onClick={() => setSelectedSession(null)}>✕</button>
             </div>
             
             <div className="modal-body">
               <div className="session-summary">
-                <p><strong>Date:</strong> {new Date(selectedSession.data.startTime).toLocaleString()}</p>
-                <p><strong>Points:</strong> {selectedSession.data.totalPoints}/75</p>
-                <p><strong>Accuracy:</strong> {calculateAccuracy(selectedSession.data.attempts)}%</p>
+                <p><strong>Tarikh:</strong> {new Date(selectedSession.data.startTime).toLocaleString()}</p>
+                <p><strong>Mata:</strong> {selectedSession.data.totalPoints}/75</p>
+                <p><strong>Ketepatan:</strong> {calculateAccuracy(selectedSession.data.attempts)}%</p>
               </div>
 
-              <h3>Attempt Details:</h3>
+              <h3>Butiran Percubaan</h3>
               <div className="attempts-log">
                 <table>
                   <thead>
                     <tr>
-                      <th>Time</th>
-                      <th>Question</th>
-                      <th>Result</th>
-                      <th>Attempt #</th>
-                      <th>Points</th>
+                      <th>Masa</th>
+                      <th>Soalan</th>
+                      <th>Keputusan</th>
+                      <th>Cubaan #</th>
+                      <th>Mata</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -478,7 +478,7 @@ function ParentDashboard() {
                           <tr key={attemptId} className={attempt.isCorrect ? 'correct-row' : 'wrong-row'}>
                             <td>{new Date(attempt.timestamp).toLocaleTimeString()}</td>
                             <td>{attempt.questionId}</td>
-                            <td>{attempt.isCorrect ? '✅ Correct' : '❌ Wrong'}</td>
+                            <td>{attempt.isCorrect ? '✅ Betul' : '❌ Salah'}</td>
                             <td>{attempt.attemptNumber}</td>
                             <td>+{attempt.pointsAwarded || 0}</td>
                           </tr>

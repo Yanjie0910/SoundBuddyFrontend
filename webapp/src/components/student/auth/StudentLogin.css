@@ -1,5 +1,3 @@
-@import url('../../theme.css');
-
 .student-login-container {
   max-width: 500px;
   margin: 60px auto;
@@ -51,10 +49,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: background 0.2s, border 0.2s;
   font-size: 0.95rem;
-  min-width: 70px;
+  width: 90px;
+  height:90px;
 }
 .pic-btn.selected, .pic-btn:disabled {
   background: #e0e0e0;

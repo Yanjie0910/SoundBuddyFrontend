@@ -1,32 +1,32 @@
 {
   "gameId": "sound_detective",
-  "gameName": "Sound Detective Challenge",
+  "gameName": "Cabaran Bunyi Huruf",
   "moduleId": 1,
-  "description": "Match sounds to letters as fast as you can!",
-  "instructionTitle": "Mini-Game Time!",
+  "description": "Padankan bunyi dengan huruf secepat mungkin!",
+  "instructionTitle": "Masa Mini-Game!",
   "instructions": [
-    "You'll hear 8 different sounds 🔊",
-    "Match each sound to the correct letter",
-    "No hints this time!",
-    "Get 6 correct (75%) to earn your badge! 🏆"
+    "Anda akan mendengar 8 bunyi berbeza",
+    "Padankan setiap bunyi dengan huruf yang betul",
+    "Tiada petunjuk kali ini",
+    "Dapatkan sekurang-kurangnya 6 betul (75%) untuk memperoleh lencana"
   ],
   "totalQuestions": 8,
   "passThreshold": 75,
   "timeLimit": null,
   "badgeAwarded": {
     "badgeId": "sound_detective",
-    "badgeName": "Sound Detective",
-    "badgeEmoji": "🕵️",
-    "badgeDescription": "You're a master at matching sounds to letters!"
+    "badgeName": "Penyiasat Bunyi",
+    "badgeEmoji": "",
+    "badgeDescription": "Anda mahir memadankan bunyi dengan huruf!"
   },
   "questions": [
-    {"questionNumber": 1, "phoneme": "/æ/", "phonemeAudio": "phoneme_short_a.mp3", "correctRFID": "123456789012", "correctLetter": "a"},
-    {"questionNumber": 2, "phoneme": "/b/", "phonemeAudio": "phoneme_b.mp3", "correctRFID": "234567890123", "correctLetter": "b"},
-    {"questionNumber": 3, "phoneme": "/k/", "phonemeAudio": "phoneme_hard_c.mp3", "correctRFID": "345678901234", "correctLetter": "c"},
-    {"questionNumber": 4, "phoneme": "/d/", "phonemeAudio": "phoneme_d.mp3", "correctRFID": "456789012345", "correctLetter": "d"},
-    {"questionNumber": 5, "phoneme": "/ɛ/", "phonemeAudio": "phoneme_short_e.mp3", "correctRFID": "567890123456", "correctLetter": "e"},
-    {"questionNumber": 6, "phoneme": "/f/", "phonemeAudio": "phoneme_f.mp3", "correctRFID": "678901234567", "correctLetter": "f"},
-    {"questionNumber": 7, "phoneme": "/g/", "phonemeAudio": "phoneme_g.mp3", "correctRFID": "789012345678", "correctLetter": "g"},
-    {"questionNumber": 8, "phoneme": "/h/", "phonemeAudio": "phoneme_h.mp3", "correctRFID": "890123456789", "correctLetter": "h"}
+    { "questionNumber": 1, "phonemeAudio": "p.mp3", "correctRFID": "585633243268", "correctLetter": "p" },
+    { "questionNumber": 2, "phonemeAudio": "s.mp3", "correctRFID": "585639551847", "correctLetter": "s" },
+    { "questionNumber": 3, "phonemeAudio": "f.mp3", "correctRFID": "585636435618", "correctLetter": "f" },
+    { "questionNumber": 4, "phonemeAudio": "e.mp3", "correctRFID": "585625918857", "correctLetter": "e" },
+    { "questionNumber": 5, "phonemeAudio": "k.mp3", "correctRFID": "585632194708", "correctLetter": "k" },
+    { "questionNumber": 6, "phonemeAudio": "d.mp3", "correctRFID": "585640600407", "correctLetter": "d" },
+    { "questionNumber": 7, "phonemeAudio": "h.mp3", "correctRFID": "585631146148", "correctLetter": "h" },
+    { "questionNumber": 8, "phonemeAudio": "j.mp3", "correctRFID": "585632191399", "correctLetter": "j" }
   ]
 }

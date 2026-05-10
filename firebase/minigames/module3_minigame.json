@@ -1,0 +1,153 @@
+{
+  "gameId": "cari_rima",
+  "gameName": "Cari Rima",
+  "moduleId": 3,
+  "description": "Cari perkataan yang berima!",
+  "instructionTitle": "Cari Rima - Cabaran!",
+  "instructions": [
+    "Lihat perkataan asas",
+    "Cari huruf pertama yang betul",
+    "Bentuk perkataan berima",
+    "Tiada petunjuk kali ini",
+    "Dapat 6/8 betul untuk menang"
+  ],
+  "totalQuestions": 8,
+  "passThreshold": 75,
+  "badgeAwarded": {
+    "badgeId": "cari_rima",
+    "badgeName": "Cari Rima",
+    "badgeEmoji": "🎵",
+    "badgeDescription": "Juara mengenal corak rima perkataan!"
+  },
+  "questions": [
+    {
+      "questionNumber": 1,
+      "baseWord": "pagi",
+      "rhymePattern": "agi",
+      "wordAudio": "lagi.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "l",
+          "word": "lagi",
+          "rfid": "585638532802"
+        },
+        {
+          "letter": "b",
+          "word": "bagi",
+          "rfid": "585633258495"
+        }
+      ]
+    },
+    {
+      "questionNumber": 2,
+      "baseWord": "basi",
+      "rhymePattern": "asi",
+      "wordAudio": "nasi.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "n",
+          "word": "nasi",
+          "rfid": "585626967449"
+        }
+      ]
+    },
+    {
+      "questionNumber": 3,
+      "baseWord": "buku",
+      "rhymePattern": "uku",
+      "wordAudio": "suku.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "s",
+          "word": "suku",
+          "rfid": "585639551847"
+        }
+      ]
+    },
+    {
+      "questionNumber": 4,
+      "baseWord": "topi",
+      "rhymePattern": "opi",
+      "wordAudio": "kopi.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "k",
+          "word": "kopi",
+          "rfid": "585632194708"
+        }
+      ]
+    },
+    {
+      "questionNumber": 5,
+      "baseWord": "baju",
+      "rhymePattern": "aju",
+      "wordAudio": "laju.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "l",
+          "word": "laju",
+          "rfid": "585638532802"
+        },
+        {
+          "letter": "m",
+          "word": "maju",
+          "rfid": "585633239991"
+        }
+      ]
+    },
+    {
+      "questionNumber": 6,
+      "baseWord": "jari",
+      "rhymePattern": "ari",
+      "wordAudio": "lari.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "l",
+          "word": "lari",
+          "rfid": "585638532802"
+        },
+        {
+          "letter": "h",
+          "word": "hari",
+          "rfid": "585631146148"
+        }
+      ]
+    },
+    {
+      "questionNumber": 7,
+      "baseWord": "mata",
+      "rhymePattern": "ata",
+      "wordAudio": "kata.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "k",
+          "word": "kata",
+          "rfid": "585632194708"
+        },
+        {
+          "letter": "b",
+          "word": "bata",
+          "rfid": "585633258495"
+        },
+        {
+          "letter": "r",
+          "word": "rata",
+          "rfid": "585634306831"
+        }
+      ]
+    },
+    {
+      "questionNumber": 8,
+      "baseWord": "padi",
+      "rhymePattern": "adi",
+      "wordAudio": "jadi.mp3",
+      "acceptedAnswers": [
+        {
+          "letter": "j",
+          "word": "jadi",
+          "rfid": "585632191399"
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import '../auth/AuthForm.css';
+import '../../auth/AuthForm.css';
 
 function ParentSignup() {
   const navigate = useNavigate();
@@ -18,18 +18,18 @@ function ParentSignup() {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate('/parent-dashboard');
     } catch (err) {
-      setError(err.message.replace('Firebase:', '').trim());
+        setError('Emel ini telah digunakan atau kata laluan tidak sah');
     }
   };
 
   return (
     <div className="auth-container">
-      <h2>Parent Signup</h2>
+      <h2>Pendaftaran Ibu Bapa</h2>
 
       <form onSubmit={handleSignup}>
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Emel"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -37,7 +37,7 @@ function ParentSignup() {
 
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Kata Laluan"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -45,12 +45,13 @@ function ParentSignup() {
 
         {error && <div className="auth-error">{error}</div>}
 
-        <button type="submit">Sign Up</button>
+        <button type="submit">Daftar</button>
       </form>
 
       <div className="auth-link">
-        Already have an account?{' '}
-        <span onClick={() => navigate('/parent-login')}>Login</span>
+        Sudah mempunyai akaun?{' '}
+           <span onClick={() => navigate('/parent-login')}>Log Masuk</span>
+
       </div>
     </div>
   );

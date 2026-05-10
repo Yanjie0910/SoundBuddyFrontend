@@ -1,0 +1,67 @@
+{
+  "moduleInfo": {
+    "moduleId": 2,
+    "moduleName": "Bina Kata",
+    "description": "Bina perkataan KVK dengan blok huruf!",
+    "totalQuestions": 5,
+    "instructionTitle": "Cara Main",
+    "instructions": [
+      "Dengar perkataan yang dibaca",
+      "Susun blok huruf dalam urutan yang betul",
+      "Letakkan setiap huruf satu persatu pada pembaca"
+    ],
+    "readyButtonText": "Saya Bersedia!"
+  },
+  "questions": {
+    "q1": {
+      "questionId": "q1",
+      "questionNumber": 1,
+      "word": "bas",
+      "wordAudio": "bas.mp3",
+      "visualCueImage": "bas.jpg",
+      "letters": ["b", "a", "s"],
+      "hintText": "B-A-S. Kenderaan awam yang besar!",
+      "pointsValue": 15
+    },
+    "q2": {
+      "questionId": "q2",
+      "questionNumber": 2,
+      "word": "dan",
+      "wordAudio": "dan.mp3",
+      "visualCueImage": "dan.jpg",
+      "letters": ["d", "a", "n"],
+      "hintText": "D-A-N. Kata hubung!",
+      "pointsValue": 15
+    },
+    "q3": {
+      "questionId": "q3",
+      "questionNumber": 3,
+      "word": "jus",
+      "wordAudio": "jus.mp3",
+      "visualCueImage": "jus.jpg",
+      "letters": ["j", "u", "s"],
+      "hintText": "J-U-S. Minuman lazat!",
+      "pointsValue": 15
+    },
+    "q4": {
+      "questionId": "q4",
+      "questionNumber": 4,
+      "word": "cat",
+      "wordAudio": "cat_word.mp3",
+      "visualCueImage": "cat_paint.jpg",
+      "letters": ["c", "a", "t"],
+      "hintText": "C-A-T. Untuk mewarna!",
+      "pointsValue": 15
+    },
+    "q5": {
+      "questionId": "q5",
+      "questionNumber": 5,
+      "word": "beg",
+      "wordAudio": "beg.mp3",
+      "visualCueImage": "beg.jpg",
+      "letters": ["b", "e", "g"],
+      "hintText": "B-E-G. Tempat simpan barang!",
+      "pointsValue": 15
+    }
+  }
+}

@@ -1,31 +1,27 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/landing/LandingPage";
 
-/* Student */
-import StudentLogin from "./components/student/StudentLogin";
-import StudentDashboard from "./components/student/StudentDashboard";
-import InstructionScreen from "./components/student/InstructionScreen";
-import LearningInterface from "./components/student/LearningInterface";
+import StudentLogin from "./components/student/auth/StudentLogin";
+import StudentDashboard from "./components/student/dashboard/StudentDashboard";
+import InstructionScreen from "./components/student/learning/core/InstructionScreen";
+import LearningInterface from "./components/student/learning/core/LearningInterface";
+import MiniGameInterface from "./components/student/games/MiniGameInterface";
+import LearningResults from './components/student/learning/core/LearningResults';
+import CertificatePage from './components/student/learning/core/CertificatePage';
 
-/* Teacher */
-import TeacherLogin from "./components/teacher/TeacherLogin";
-import TeacherSignup from "./components/teacher/TeacherSignup";
-import TeacherDashboard from "./components/teacher/TeacherDashboard";
+import TeacherLogin from "./components/teacher/auth/TeacherLogin";
+import TeacherSignup from "./components/teacher/auth/TeacherSignup";
+import TeacherDashboard from "./components/teacher/dashboard/TeacherDashboard";
 
-/* Parent */
-import ParentLogin from "./components/parent/ParentLogin";
-import ParentSignup from "./components/parent/ParentSignup";
-import ParentDashboard from "./components/parent/ParentDashborad";
+import ParentLogin from "./components/parent/auth/ParentLogin";
+import ParentSignup from "./components/parent/auth/ParentSignup";
+import ParentDashboard from "./components/parent/dashboard/ParentDashboard";
 
 import "./App.css";
 
 function App() {
-
-  /* ======================================
-     Restore accessibility mode on refresh
-     ====================================== */
   useEffect(() => {
     const role = localStorage.getItem("userRole");
 
@@ -39,35 +35,22 @@ function App() {
   return (
     <Router>
       <Routes>
-
-        {/* Landing */}
         <Route path="/" element={<LandingPage />} />
 
-        {/* =====================
-           Student Routes
-           ===================== */}
         <Route path="/student-login" element={<StudentLogin />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route
-          path="/instruction"
-          element={<InstructionScreen onComplete={() => window.location.replace("/learning")} />}
-        />
-        <Route path="/learning" element={<LearningInterface />} />
-
-        {/* =====================
-           Teacher Routes
-           ===================== */}
-        <Route path="/teacher-login" element={<TeacherLogin />} />
+        <Route path="/instruction/:moduleId" element={<InstructionScreen />} />
+        <Route path="/learning/:moduleId" element={<LearningInterface />} />
+<Route path="/minigame/:moduleId" element={<MiniGameInterface />} />
+<Route path="/learning-results/:moduleId" element={<LearningResults />} />
+<Route path="/certificate" element={<CertificatePage />} />        
+<Route path="/teacher-login" element={<TeacherLogin />} />
         <Route path="/teacher-signup" element={<TeacherSignup />} />
         <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
 
-        {/* =====================
-           Parent Routes
-           ===================== */}
         <Route path="/parent-login" element={<ParentLogin />} />
         <Route path="/parent-signup" element={<ParentSignup />} />
         <Route path="/parent-dashboard" element={<ParentDashboard />} />
-
       </Routes>
     </Router>
   );

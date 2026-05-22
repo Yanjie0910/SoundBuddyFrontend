@@ -24,7 +24,7 @@
       "questionNumber": 1,
       "baseWord": "pagi",
       "rhymePattern": "agi",
-      "wordAudio": "lagi.mp3",
+      "wordAudio": "pagi.mp3",
       "acceptedAnswers": [
         {
           "letter": "l",
@@ -42,7 +42,7 @@
       "questionNumber": 2,
       "baseWord": "basi",
       "rhymePattern": "asi",
-      "wordAudio": "nasi.mp3",
+      "wordAudio": "basi.mp3",
       "acceptedAnswers": [
         {
           "letter": "n",
@@ -55,7 +55,7 @@
       "questionNumber": 3,
       "baseWord": "buku",
       "rhymePattern": "uku",
-      "wordAudio": "suku.mp3",
+      "wordAudio": "buku.mp3",
       "acceptedAnswers": [
         {
           "letter": "s",
@@ -68,7 +68,7 @@
       "questionNumber": 4,
       "baseWord": "topi",
       "rhymePattern": "opi",
-      "wordAudio": "kopi.mp3",
+      "wordAudio": "topi.mp3",
       "acceptedAnswers": [
         {
           "letter": "k",
@@ -81,7 +81,7 @@
       "questionNumber": 5,
       "baseWord": "baju",
       "rhymePattern": "aju",
-      "wordAudio": "laju.mp3",
+      "wordAudio": "baju.mp3",
       "acceptedAnswers": [
         {
           "letter": "l",
@@ -99,7 +99,7 @@
       "questionNumber": 6,
       "baseWord": "jari",
       "rhymePattern": "ari",
-      "wordAudio": "lari.mp3",
+      "wordAudio": "jari.mp3",
       "acceptedAnswers": [
         {
           "letter": "l",
@@ -117,7 +117,7 @@
       "questionNumber": 7,
       "baseWord": "mata",
       "rhymePattern": "ata",
-      "wordAudio": "kata.mp3",
+      "wordAudio": "mata.mp3",
       "acceptedAnswers": [
         {
           "letter": "k",
@@ -140,7 +140,7 @@
       "questionNumber": 8,
       "baseWord": "padi",
       "rhymePattern": "adi",
-      "wordAudio": "jadi.mp3",
+      "wordAudio": "padi.mp3",
       "acceptedAnswers": [
         {
           "letter": "j",

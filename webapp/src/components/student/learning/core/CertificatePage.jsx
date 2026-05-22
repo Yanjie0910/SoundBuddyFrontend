@@ -95,17 +95,15 @@ function CertificatePage() {
           {/* Stars */}
           <div className="cert-star cert-star-tl">⭐</div>
           <div className="cert-star cert-star-tr">⭐</div>
-          <div className="cert-rainbow-left">🌈</div>
-          <div className="cert-rainbow-right">🌈</div>
+  
 
           {/* Header */}
           <div className="cert-header">
             <div className="cert-school">
-              {'RakanBunyi'.split('').map((c, i) => (
+              {'PhonoBuddy'.split('').map((c, i) => (
                 <span key={i} style={{ color: ['#FF6B6B','#FF8E53','#FFD700','#4CAF50','#2196F3','#9C27B0','#FF6B6B','#FF8E53','#FFD700','#4CAF50'][i] }}>{c}</span>
               ))}
             </div>
-            <div className="cert-subtitle">Sistem Pembelajaran Fonik Bahasa Melayu</div>
           </div>
 
           {/* Title banner */}
@@ -163,13 +161,7 @@ function CertificatePage() {
                   {badges[b.id]?.earned && <div className="cert-badge-stars">⭐⭐⭐⭐⭐</div>}
                 </div>
               ))}
-              {allEarned && (
-                <div className="cert-tahniah-chip">
-                  <div>🏅</div>
-                  <div className="cert-tahniah-title">TAHNIAH!</div>
-                  <div className="cert-tahniah-sub">Teruskan usaha yang hebat!</div>
-                </div>
-              )}
+              
             </div>
           </div>
 
@@ -181,7 +173,7 @@ function CertificatePage() {
               <div className="cert-date-lbl">Tarikh</div>
             </div>
             <div className="cert-sig-col">
-              <div className="cert-sig-name">Rakan Bunyi </div>
+              <div className="cert-sig-name">PhonoBuddy </div>
               <div className="cert-sig-line"></div>
               <div className="cert-sig-lbl">Guru Pembimbing</div>
             </div>

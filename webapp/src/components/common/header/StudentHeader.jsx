@@ -15,7 +15,7 @@ function StudentHeader({ studentName }) {
   return (
     <nav className="student-nav">
       <div className="student-nav-left">
-        <span>RakanBunyi</span>
+        <span>PhonoBuddy</span>
       </div>
 
       <div className="student-nav-center">

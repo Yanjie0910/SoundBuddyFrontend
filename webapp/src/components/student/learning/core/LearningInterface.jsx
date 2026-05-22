@@ -25,6 +25,14 @@ const MODULE_CONFIG = {
   },
 };
 
+// ✅ Constants for delays
+const TRANSITION_DELAYS = {
+  SHOW_ANSWER: 3000,
+  FEEDBACK_DISPLAY: 1800,
+  WRONG_FEEDBACK: 1000,
+  QUESTION_LOAD: 400,
+};
+
 function LearningInterface() {
   const navigate = useNavigate();
   const { moduleId } = useParams();
@@ -41,12 +49,33 @@ function LearningInterface() {
   const [sessionState, setSessionState] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [placedLetters, setPlacedLetters] = useState([]);
+  const [showReflection, setShowReflection] = useState(false);
+  const [pendingResultRoute, setPendingResultRoute] = useState(null);
+  const [error, setError] = useState(null); // ✅ Error state
 
   const audioRef = useRef(null);
   const feedbackAudioRef = useRef(null);
 
-  // ✅ Tracks which sessionPath has been initialized to prevent re-runs
+  // ✅ Refs to prevent infinite loops and memory leaks
   const initializedForPath = useRef(null);
+  const isLocalUpdate = useRef(false);
+  const prevAttemptRef = useRef(0);
+  const timeoutRefs = useRef([]);
+
+  // ✅ Helper to track timeouts for cleanup
+  const safeSetTimeout = useCallback((callback, delay) => {
+    const id = setTimeout(callback, delay);
+    timeoutRefs.current.push(id);
+    return id;
+  }, []);
+
+  // ✅ Clear all timeouts on unmount
+  useEffect(() => {
+    return () => {
+      timeoutRefs.current.forEach(clearTimeout);
+      timeoutRefs.current = [];
+    };
+  }, []);
 
   // ─── Load session from localStorage ───────────────────────────────────────
   useEffect(() => {
@@ -73,6 +102,7 @@ function LearningInterface() {
     setShowAnswer(false);
     setIsTransitioning(false);
     setPlacedLetters([]);
+    setError(null); // ✅ Clear errors too
   }, []);
 
   // ✅ Full reset — used when moving to a NEW question (not resume)
@@ -80,6 +110,7 @@ function LearningInterface() {
     async (questionId) => {
       if (!sessionPath) return;
       try {
+        isLocalUpdate.current = true; // ✅ Mark as local update
         await update(ref(database, sessionPath), {
           currentQuestion: questionId,
           moduleId: activeModuleId,
@@ -94,8 +125,11 @@ function LearningInterface() {
             isCorrect: false,
           },
         });
+        setTimeout(() => { isLocalUpdate.current = false; }, 100);
       } catch (e) {
-        console.error(e);
+        console.error("Firebase update error:", e);
+        setError("Ralat menyimpan kemajuan. Sila cuba lagi.");
+        isLocalUpdate.current = false;
       }
     },
     [sessionPath, activeModuleId]
@@ -136,6 +170,7 @@ function LearningInterface() {
       if (!sessionPath) return;
 
       setIsTransitioning(true);
+      setError(null); // ✅ Clear previous errors
 
       if (!isResume) {
         clearAllStates();
@@ -155,32 +190,45 @@ function LearningInterface() {
         const snap = await get(qRef);
 
         if (snap.exists()) {
-          setTimeout(() => {
+          safeSetTimeout(() => {
             setCurrentQuestion(snap.val());
             setIsTransitioning(false);
-          }, 400);
+          }, TRANSITION_DELAYS.QUESTION_LOAD);
+
+          // ✅ Mark as local update before Firebase write
+          isLocalUpdate.current = true;
 
           if (!isResume) {
-            // Full reset for new question (resets attempts, hints, placedLetters etc.)
+            // Full reset for new question
             await updateCurrentQuestionInFirebase(questionId);
           } else {
-            // ✅ KEY FIX: On resume, still save currentQuestion + moduleId to Firebase
-            // Without this, Firebase keeps showing q1 forever and refresh always resets
+            // On resume, still save currentQuestion + moduleId to Firebase
             await update(ref(database, sessionPath), {
               currentQuestion: questionId,
               moduleId: activeModuleId,
               gameMode: false,
             });
+            setTimeout(() => { isLocalUpdate.current = false; }, 100);
           }
         } else {
           setIsTransitioning(false);
+          setError("Soalan tidak dijumpai.");
         }
       } catch (e) {
-        console.error(e);
+        console.error("Load question error:", e);
+        setError("Ralat memuatkan soalan. Sila cuba lagi.");
         setIsTransitioning(false);
+        isLocalUpdate.current = false;
       }
     },
-    [moduleConfig.path, updateCurrentQuestionInFirebase, clearAllStates, sessionPath, activeModuleId]
+    [
+      moduleConfig.path,
+      updateCurrentQuestionInFirebase,
+      clearAllStates,
+      sessionPath,
+      activeModuleId,
+      safeSetTimeout,
+    ]
   );
 
   const getNextQuestion = useCallback(
@@ -197,8 +245,12 @@ function LearningInterface() {
         return;
       }
 
-      setTimeout(() => {
-        setFeedback({ type: "correct", points: attemptData.pointsAwarded });
+      safeSetTimeout(() => {
+        setFeedback({
+          type: "correct",
+          points: attemptData.pointsAwarded,
+          attempts: attemptData.attemptNumber,
+        });
 
         if (feedbackAudioRef.current) {
           feedbackAudioRef.current.src = "/audio/correct.mp3";
@@ -212,28 +264,29 @@ function LearningInterface() {
           attemptData.pointsAwarded || 0
         );
 
-        setTimeout(() => {
+        safeSetTimeout(() => {
           setFeedback(null);
-          setTimeout(() => {
+          safeSetTimeout(() => {
             const nextQ = getNextQuestion(currentQuestionId);
             if (nextQ) {
-              // isResume=false → full reset + saves nextQ to Firebase ✅
               loadQuestion(nextQ);
             } else {
-              navigate(`/learning-results/${activeModuleId}`);
+              openReflectionBeforeResults(
+                `/learning-results/${activeModuleId}`
+              );
             }
-          }, 400);
-        }, 1800);
-      }, 400);
+          }, TRANSITION_DELAYS.QUESTION_LOAD);
+        }, TRANSITION_DELAYS.FEEDBACK_DISPLAY);
+      }, TRANSITION_DELAYS.QUESTION_LOAD);
     },
     [
       currentQuestionId,
       loadQuestion,
       getNextQuestion,
       isTransitioning,
-      navigate,
       saveQuestionProgress,
       activeModuleId,
+      safeSetTimeout,
     ]
   );
 
@@ -244,7 +297,7 @@ function LearningInterface() {
       }
       if (attemptData.attemptNumber >= 4) return;
 
-      setTimeout(() => {
+      safeSetTimeout(() => {
         setFeedback({ type: "wrong", attempts: attemptData.attemptNumber });
 
         if (feedbackAudioRef.current) {
@@ -252,10 +305,65 @@ function LearningInterface() {
           feedbackAudioRef.current.play().catch(() => {});
         }
 
-        setTimeout(() => setFeedback(null), 1000);
-      }, 400);
+        safeSetTimeout(
+          () => setFeedback(null),
+          TRANSITION_DELAYS.WRONG_FEEDBACK
+        );
+      }, TRANSITION_DELAYS.QUESTION_LOAD);
     },
-    [isTransitioning]
+    [isTransitioning, safeSetTimeout]
+  );
+
+  const getEncouragementMessage = useCallback((type, attempts = 1) => {
+    if (type === "correct") {
+      if (attempts === 1) return "Hebat! Kamu berjaya jawab dengan yakin!";
+      return "Bagus! Kamu cuba sampai berjaya!";
+    }
+
+    if (attempts >= 3) {
+      return "Tak mengapa, kita cuba perlahan-lahan bersama-sama.";
+    }
+
+    return "Cuba lagi, kamu hampir berjaya!";
+  }, []);
+
+  const openReflectionBeforeResults = useCallback((route) => {
+    setPendingResultRoute(route);
+    setShowReflection(true);
+  }, []);
+
+  const saveReflectionAndContinue = useCallback(
+    async (mood) => {
+      if (!studentId || !teacherId) {
+        navigate(pendingResultRoute || `/learning-results/${activeModuleId}`);
+        return;
+      }
+
+      try {
+        const reflectionPath = `teachers/${teacherId}/students/${studentId}/reflections/${moduleConfig.path}/${Date.now()}`;
+        await set(ref(database, reflectionPath), {
+          mood,
+          moduleId: activeModuleId,
+          moduleName: moduleConfig.name,
+          questionId: currentQuestionId,
+          createdAt: Date.now(),
+        });
+      } catch (e) {
+        console.error("Reflection save error:", e);
+      }
+
+      navigate(pendingResultRoute || `/learning-results/${activeModuleId}`);
+    },
+    [
+      studentId,
+      teacherId,
+      moduleConfig.path,
+      moduleConfig.name,
+      activeModuleId,
+      currentQuestionId,
+      navigate,
+      pendingResultRoute,
+    ]
   );
 
   // ─── Initialize / Resume Session ──────────────────────────────────────────
@@ -264,7 +372,6 @@ function LearningInterface() {
 
     // Only init once per sessionPath
     if (initializedForPath.current === sessionPath) return;
-    initializedForPath.current = sessionPath;
 
     const init = async () => {
       try {
@@ -276,11 +383,14 @@ function LearningInterface() {
         const sameModule = existingSession.moduleId === activeModuleId;
         const existingQuestion = existingSession.currentQuestion;
 
-        // ✅ Resume same question if same module, else start at q1
+        // Resume same question if same module, else start at q1
         const questionToLoad =
           sameModule && existingQuestion ? existingQuestion : "q1";
 
         console.log("questionToLoad:", questionToLoad);
+
+        // ✅ Mark as local update before Firebase write
+        isLocalUpdate.current = true;
 
         // Write to Firebase first
         await update(ref(database, sessionPath), {
@@ -300,22 +410,29 @@ function LearningInterface() {
           startedAt: existingSession.startedAt || Date.now(),
         });
 
-        // isResume=true to preserve existing states
-        loadQuestion(questionToLoad, true);
+        setTimeout(() => { isLocalUpdate.current = false; }, 100);
+
+        // Load question (isResume=true to preserve existing states)
+        await loadQuestion(questionToLoad, true);
+
+        // ✅ Only mark as initialized on SUCCESS
+        initializedForPath.current = sessionPath;
       } catch (err) {
         console.error("Init error:", err);
+        setError("Ralat memulakan sesi. Sila muat semula halaman.");
+        isLocalUpdate.current = false;
+        initializedForPath.current = null; // ✅ Allow retry
       }
     };
 
     init();
-  }, [session, sessionPath]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [session, sessionPath, activeModuleId, loadQuestion]);
 
   // ─── Firebase Realtime Listener ────────────────────────────────────────────
   useEffect(() => {
     if (!sessionPath) return;
 
     const sessionRef = ref(database, sessionPath);
-    let prevAttempt = 0;
 
     const unsub = onValue(sessionRef, (snap) => {
       if (!snap.exists()) return;
@@ -323,6 +440,21 @@ function LearningInterface() {
       const data = snap.val();
       setSessionState(data);
 
+      // ✅ Ignore self-triggered updates to prevent infinite loop
+      if (isLocalUpdate.current) return;
+
+      // Check if question changed from another source (teacher dashboard)
+      if (
+        data.moduleId === activeModuleId &&
+        data.currentQuestion &&
+        data.currentQuestion !== currentQuestionId &&
+        !isTransitioning
+      ) {
+        loadQuestion(data.currentQuestion, true);
+        return;
+      }
+
+      // Show answer mode
       if (data.showAnswer && !showAnswer) {
         setShowAnswer(true);
         setFeedback(null);
@@ -331,29 +463,33 @@ function LearningInterface() {
 
         saveQuestionProgress(currentQuestionId, false, 4, 0);
 
-        setTimeout(() => {
+        safeSetTimeout(() => {
           const nextQ = getNextQuestion(currentQuestionId);
           if (nextQ) {
             loadQuestion(nextQ);
           } else {
-            navigate(`/learning-results/${activeModuleId}`);
+            openReflectionBeforeResults(
+              `/learning-results/${activeModuleId}`
+            );
           }
-        }, 3000);
+        }, TRANSITION_DELAYS.SHOW_ANSWER);
 
         return;
       }
 
       if (isTransitioning) return;
 
+      // Show hint
       if (data.showHint && !showHint) {
         setShowHint(true);
         setFeedback(null);
       }
 
+      // Handle attempts using ref to prevent stale closure
       if (data.lastAttempt) {
         const cur = data.lastAttempt.attemptNumber;
-        if (cur > prevAttempt && cur > 0) {
-          prevAttempt = cur;
+        if (cur > prevAttemptRef.current && cur > 0) {
+          prevAttemptRef.current = cur;
           if (data.lastAttempt.isCorrect) {
             handleCorrectAnswer(data.lastAttempt);
           } else {
@@ -362,12 +498,17 @@ function LearningInterface() {
         }
       }
 
+      // Update placed letters
       if (Array.isArray(data.placedLetters)) {
         setPlacedLetters(data.placedLetters);
       }
     });
 
-    return () => unsub();
+    return () => {
+      unsub();
+      // ✅ Reset attempt counter when listener unmounts
+      prevAttemptRef.current = 0;
+    };
   }, [
     sessionPath,
     currentQuestionId,
@@ -378,21 +519,50 @@ function LearningInterface() {
     getNextQuestion,
     loadQuestion,
     isTransitioning,
-    navigate,
     saveQuestionProgress,
     activeModuleId,
+    openReflectionBeforeResults,
+    safeSetTimeout,
   ]);
 
   // ─── Play Sound ────────────────────────────────────────────────────────────
   const playSound = () => {
-    if (audioRef.current && currentQuestion) {
-      const audioFile =
-        currentQuestion.phonemeAudio ||
-        currentQuestion.wordAudio ||
-        `${currentQuestion.word}.mp3`;
-      audioRef.current.src = `/audio/${audioFile}`;
-      audioRef.current.play().catch(() => {});
+    if (!audioRef.current || !currentQuestion) {
+      console.error("❌ Audio ref or question missing");
+      return;
     }
+
+    //  Stop current playback to prevent overlap
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
+
+    // Determine audio file based on module type
+    let audioFile = null;
+
+    if (moduleConfig.type === "phoneme") {
+      // Module 1: Phoneme
+      audioFile = currentQuestion.phonemeAudio;
+    } else if (moduleConfig.type === "kvk") {
+      // Module 2: KVK Word Building
+      audioFile = currentQuestion.wordAudio || `${currentQuestion.word}.mp3`;
+    } else if (moduleConfig.type === "rhyme") {
+      // Module 3: Rhyme - plays the BASE WORD
+      audioFile =
+        currentQuestion.wordAudio || `${currentQuestion.baseWord}.mp3`;
+    }
+
+    if (!audioFile) {
+      console.error("❌ No audio file found for question:", currentQuestion);
+      return;
+    }
+
+    console.log(`🔊 Playing audio: /audio/${audioFile}`);
+
+    audioRef.current.src = `/audio/${audioFile}`;
+    audioRef.current.play().catch((error) => {
+      console.error("❌ Audio playback failed:", error);
+      console.error("Attempted to play:", `/audio/${audioFile}`);
+    });
   };
 
   const questionNum = moduleConfig.questions.indexOf(currentQuestionId) + 1;
@@ -430,8 +600,16 @@ function LearningInterface() {
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <div className="learning-interface">
-      <audio ref={audioRef} />
-      <audio ref={feedbackAudioRef} />
+      <audio ref={audioRef} hidden />
+      <audio ref={feedbackAudioRef} hidden />
+
+      {/* ✅ Error Banner */}
+      {error && (
+        <div className="error-banner">
+          <span>⚠️ {error}</span>
+          <button onClick={() => setError(null)}>✕</button>
+        </div>
+      )}
 
       {/* Header */}
       <div className="learning-header">
@@ -461,21 +639,74 @@ function LearningInterface() {
       </div>
 
       <div className="question-container">
-
         {/* ── MODULE 1: Phoneme ── */}
         {moduleConfig.type === "phoneme" && (
           <>
-            {!showHint && !showAnswer && !feedback && (
-              <div className="discovery-mode animate-fade-in">
-                <p className="q-instruction">
-                  Dengar bunyi dan pilih huruf yang betul
-                </p>
-                <button className="massive-speaker-button" onClick={playSound}>
-                  <span className="speaker-icon">🔊</span>
-                </button>
-                <p className="instruction-text">Tekan untuk dengar bunyi!</p>
+            {/* 🔍 Mirror Confusion Alert */}
+            {sessionState?.lastAttempt?.isMirrorConfusion && (
+              <div className="mirror-alert">
+                <div className="mirror-header">
+                  <span className="icon">⚠️</span>
+                  <h3>Huruf Ini Kelihatan Hampir Sama!</h3>
+                </div>
+
+                <div className="letter-comparison">
+                  <div className="letter-box wrong">
+                    <div className="big-letter">
+                      {(
+                        sessionState.lastAttempt.scannedLetter || "?"
+                      ).toLowerCase()}
+                    </div>
+                    <div className="label">Kamu pilih</div>
+                  </div>
+
+                  <div className="vs">↔️</div>
+
+                  <div className="letter-box correct">
+                    <div className="big-letter">
+                      {(
+                        sessionState.lastAttempt.expectedLetter || "?"
+                      ).toLowerCase()}
+                    </div>
+                    <div className="label">Jawapan betul</div>
+                  </div>
+                </div>
+
+                <div className="hint-box">
+                  {(() => {
+                    const letter = sessionState.lastAttempt.expectedLetter?.toLowerCase();
+                    const hints = {
+                      b: ' Huruf "b" mempunyai perut di sebelah KANAN',
+                      d: ' Huruf "d" mempunyai perut di sebelah KIRI',
+                      p: ' Huruf "p" mempunyai kaki turun ke BAWAH',
+                      q: ' Huruf "q" mempunyai ekor turun di KANAN',
+                      m: ' Huruf "m" seperti gunung - dua puncak ke ATAS',
+                      w: ' Huruf "w" seperti lembah - dua cerun ke BAWAH',
+                      n: ' Huruf "n" garis naik ke KANAN',
+                      u: ' Huruf "u" seperti mangkuk terbuka',
+                    };
+                    return hints[letter] || "";
+                  })()}
+                </div>
+
+                <p className="try-again"> Cuba lagi dengan teliti!</p>
               </div>
             )}
+
+            {!showHint &&
+              !showAnswer &&
+              !feedback &&
+              !sessionState?.lastAttempt?.isMirrorConfusion && (
+                <div className="discovery-mode animate-fade-in">
+                  <p className="q-instruction">
+                    Dengar bunyi dan pilih huruf yang betul
+                  </p>
+                  <button className="massive-speaker-button" onClick={playSound}>
+                    <span className="speaker-icon">▶</span>
+                  </button>
+                  <p className="instruction-text">Tekan untuk dengar bunyi!</p>
+                </div>
+              )}
 
             {showHint && !showAnswer && (
               <div className="hint-mode animate-pop">
@@ -485,10 +716,12 @@ function LearningInterface() {
                     src={`/images/objects/${currentQuestion.visualCueImage}`}
                     alt="Petunjuk"
                     className="real-photo-hint"
-                    onError={(e) => { e.target.style.display = "none"; }}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
                   />
                   <button className="mini-speaker-button" onClick={playSound}>
-                    🔊 Dengar semula
+                    Dengar semula
                   </button>
                 </div>
                 <p className="hint-text">
@@ -507,7 +740,9 @@ function LearningInterface() {
                   src={`/images/objects/${currentQuestion.visualCueImage}`}
                   alt="Jawapan"
                   className="answer-image"
-                  onError={(e) => { e.target.style.display = "none"; }}
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
                 />
                 <p className="hint-text">Ke soalan seterusnya dalam 3 saat...</p>
               </div>
@@ -525,30 +760,40 @@ function LearningInterface() {
                     src={`/images/objects/${currentQuestion.visualCueImage}`}
                     alt={currentQuestion.word}
                     className="kvk-image"
-                    onError={(e) => { e.target.style.display = "none"; }}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
                   />
                   <button className="mini-speaker-button" onClick={playSound}>
-                    🔊 {currentQuestion.word}
+                    🔊 Dengar perkataan
                   </button>
-                </div>
-                <p className="q-instruction">
-                  Bina perkataan:{" "}
-                  <strong>{currentQuestion.word?.toUpperCase()}</strong>
-                </p>
-                <div className="letter-slots">
-                  {(currentQuestion.letters || []).map((letter, i) => (
-                    <div
-                      key={i}
-                      className={`letter-slot ${placedLetters[i] ? "filled" : "empty"}`}
-                    >
-                      {placedLetters[i] ? placedLetters[i].toUpperCase() : "_"}
+
+                  <p className="q-instruction">
+                    Lihat gambar dan bina perkataan menggunakan blok huruf
+                  </p>
+                  <div className="letter-slots">
+                    {(currentQuestion.letters || []).map((letter, i) => (
+                      <div
+                        key={i}
+                        className={`letter-slot ${
+                          placedLetters[i] ? "filled" : "empty"
+                        }`}
+                      >
+                        {placedLetters[i]
+                          ? placedLetters[i].toUpperCase()
+                          : "_"}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="waiting-text">
+                    Letakkan blok huruf satu persatu
+                  </p>
+                  {showHint && (
+                    <div className="kvk-hint">
+                      💡 {currentQuestion.hintText}
                     </div>
-                  ))}
+                  )}
                 </div>
-                <p className="waiting-text">Letakkan blok huruf satu persatu</p>
-                {showHint && (
-                  <div className="kvk-hint">💡 {currentQuestion.hintText}</div>
-                )}
               </div>
             )}
 
@@ -585,12 +830,13 @@ function LearningInterface() {
                   </div>
                   <div className="arrow-right">→</div>
                   <div className="target-word-card">
-                    <span className="base-word-label">Bina perkataan:</span>
                     <span className="target-word">
                       <span className="unknown-letter">?</span>
                       <span className="known-ending">
-  {currentQuestion.rhymePattern?.replace("-", "").toUpperCase()}
-</span>
+                        {currentQuestion.rhymePattern
+                          ?.replace("-", "")
+                          .toUpperCase()}
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -613,7 +859,9 @@ function LearningInterface() {
                     <span className="target-word">
                       <span className="unknown-letter">?</span>
                       <span className="known-ending">
-  {currentQuestion.rhymePattern?.replace("-", "").toUpperCase()}
+                        {currentQuestion.rhymePattern
+                          ?.replace("-", "")
+                          .toUpperCase()}
                       </span>
                     </span>
                   </div>
@@ -629,22 +877,18 @@ function LearningInterface() {
               <div className="answer-mode animate-glow">
                 <p className="instruction-text">Jawapannya ialah:</p>
                 <div className="accepted-answers-display">
+                  {currentQuestion.acceptedAnswers?.map((answer, index) => (
+                    <div key={index} className="accepted-answer-card">
+                      <div className="big-letter-display">
+                        {answer.letter?.toUpperCase()}
+                      </div>
 
-  {currentQuestion.acceptedAnswers?.map((answer, index) => (
-    <div key={index} className="accepted-answer-card">
-
-      <div className="big-letter-display">
-        {answer.letter?.toUpperCase()}
-      </div>
-
-      <p className="answer-word">
-        {answer.word?.toUpperCase()}
-      </p>
-
-    </div>
-  ))}
-
-</div>
+                      <p className="answer-word">
+                        {answer.word?.toUpperCase()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
                 <p className="hint-text">Ke soalan seterusnya dalam 3 saat...</p>
               </div>
             )}
@@ -658,7 +902,7 @@ function LearningInterface() {
               {feedback.type === "correct" ? "✅" : "❌"}
             </span>
             <p className="feedback-message">
-              {feedback.type === "correct" ? "Betul! Bagus!" : "Cuba lagi!"}
+              {getEncouragementMessage(feedback.type, feedback.attempts)}
             </p>
             {feedback.type === "correct" && (
               <>
@@ -667,11 +911,50 @@ function LearningInterface() {
               </>
             )}
             {feedback.type === "wrong" && feedback.attempts < 4 && (
-              <p className="feedback-attempts">Cuba ke-{feedback.attempts}/4</p>
+              <p className="feedback-attempts">
+                Cuba ke-{feedback.attempts}/4
+              </p>
             )}
           </div>
         )}
       </div>
+
+      {showReflection && (
+        <div className="reflection-overlay">
+          <div className="reflection-card">
+            <span className="reflection-kicker">Sebelum tamat</span>
+            <h2>Aktiviti mana paling terasa hari ini?</h2>
+            <p>
+              Pilih satu perasaan. Ini membantu guru faham pengalaman belajar
+              kamu.
+            </p>
+
+            <div className="reflection-options">
+              <button
+                type="button"
+                onClick={() => saveReflectionAndContinue("easy")}
+              >
+                <span>🙂</span>
+                Senang
+              </button>
+              <button
+                type="button"
+                onClick={() => saveReflectionAndContinue("okay")}
+              >
+                <span>😐</span>
+                Biasa
+              </button>
+              <button
+                type="button"
+                onClick={() => saveReflectionAndContinue("hard")}
+              >
+                <span>😣</span>
+                Susah
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Waiting Indicator */}
       {!feedback && !showAnswer && (

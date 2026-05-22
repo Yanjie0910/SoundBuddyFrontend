@@ -4,12 +4,28 @@ import { database } from '../../../firebase';
 import { ref, get } from 'firebase/database';
 import './StudentLogin.css';
 
-const PICTURE_POOL = [
-  'kucing','anjing','epal','kereta','bintang',
-  'pokok','ikan','buku','topi','bola',
-  'pisang','bulan','daun','kasut','cawan',
-  'burung','kek','bas','kunci','katak'
-];
+const PICTURE_EMOJIS = {
+  kucing: '🐱',
+  anjing: '🐶',
+  epal: '🍎',
+  kereta: '🚗',
+  bintang: '⭐',
+  pokok: '🌳',
+  ikan: '🐟',
+  buku: '📚',
+  topi: '🎩',
+  bola: '⚽',
+  pisang: '🍌',
+  bulan: '🌙',
+  daun: '🍃',
+  kasut: '👟',
+  cawan: '☕',
+  burung: '🐦',
+  kek: '🎂',
+  bas: '🚌',
+  kunci: '🔑',
+  katak: '🐸'
+};
 
 function StudentLogin() {
   const navigate = useNavigate();
@@ -125,18 +141,17 @@ function StudentLogin() {
         <p>Pilih 3 gambar anda mengikut urutan:</p>
 
         <div className="picture-pool">
-          {PICTURE_POOL.map((pic) => (
+          {Object.entries(PICTURE_EMOJIS).map(([key, emoji]) => (
             <button
               type="button"
-              key={pic}
+              key={key}
               className={`pic-btn ${
-                selectedPics.includes(pic) ? 'selected' : ''
+                selectedPics.includes(key) ? 'selected' : ''
               }`}
-              onClick={() => handlePicClick(pic)}
+              onClick={() => handlePicClick(key)}
               disabled={selectedPics.length >= 3}
             >
-              <img src={`/images/icons/${pic}.png`}  />
-              {pic.charAt(0).toUpperCase() + pic.slice(1)}
+               <span className="pic-emoji">{emoji}</span> 
             </button>
           ))}
         </div>

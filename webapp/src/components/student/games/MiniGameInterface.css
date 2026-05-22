@@ -640,6 +640,7 @@
   border: 1px solid rgba(255,255,255,0.3);
 }
 
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .mg-answer-boxes.single-letter .answer-box {

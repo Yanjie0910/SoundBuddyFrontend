@@ -92,9 +92,7 @@ function LearningResults() {
       <div className="results-container">
         {/* Header */}
         <div className="results-header">
-          <div className="module-badge" style={{ background: config.color }}>
-            {mId === 1 ? '🔤' : mId === 2 ? '🔨' : '🎵'}
-          </div>
+         
           <h1 className="results-title">{config.name}</h1>
           <p className="results-subtitle">Pembelajaran Selesai!</p>
         </div>
@@ -150,12 +148,7 @@ function LearningResults() {
           )}
         </div>
 
-        {/* Next Step */}
-        <div className="next-step-card">
-          <div className="next-icon">🎮</div>
-          <h3>Sedia untuk Mini Game?</h3>
-          <p>Uji kemahiran kamu dalam permainan!</p>
-        </div>
+       
 
         {/* Action Buttons */}
         <div className="results-actions">
@@ -164,14 +157,14 @@ function LearningResults() {
             style={{ background: config.color }}
             onClick={() => navigate(`/minigame/${mId}`)}
           >
-            🎮 Main Mini Game
+             Main Mini Game
           </button>
           
           <button 
             className="secondary-btn"
             onClick={() => navigate('/student-dashboard')}
           >
-            🏠 Papan Pemuka
+            Papan Pemuka
           </button>
         </div>
 
@@ -183,7 +176,6 @@ function LearningResults() {
               <div key={q.id} className="breakdown-item">
                 <span className="q-num">Soalan {idx + 1}</span>
                 <span className={`q-status ${q.isCorrect ? 'correct' : 'wrong'}`}>
-                  {q.isCorrect ? '✅' : '❌'}
                 </span>
                 <span className="q-attempts">{q.attempts} cubaan</span>
                 <span className="q-points">+{q.points} mata</span>

@@ -12,7 +12,7 @@ const MODULES = [
     name: 'Bunyi & Huruf',
     description: 'Kenali bunyi dan huruf Bahasa Melayu',
     color: '#FF8C69',
-    emoji: '🐢',
+    emoji: '🔤',
     badge: { id: 'detektif_bunyi', name: 'Detektif Bunyi' },
     mascotBg: '#FFD4C2',
   },
@@ -22,7 +22,7 @@ const MODULES = [
     name: 'Bina Kata',
     description: 'Bina perkataan KVK Bahasa Melayu',
     color: '#5BA4CF',
-    emoji: '🐧',
+    emoji: '🧩',
     badge: { id: 'misi_kata', name: 'Misi Kata' },
     mascotBg: '#C2DFFF',
   },
@@ -32,7 +32,7 @@ const MODULES = [
     name: 'Keluarga Kata',
     description: 'Kenali corak rima dalam Bahasa Melayu',
     color: '#5DB87A',
-    emoji: '🦊',
+    emoji: '🎵',
     badge: { id: 'cari_rima', name: 'Cari Rima' },
     mascotBg: '#C2F0D2',
   },
@@ -41,7 +41,7 @@ const MODULES = [
 // Badge modal details
 const BADGE_DETAILS = {
   detektif_bunyi: {
-    emoji: '🕵️',
+    image: '/images/badge/detektif-bunyi.png',
     color: '#FF8C69',
     colorLight: '#FFF0EB',
     about: 'Anugerah ini diberikan kepada kamu kerana telah menyelesaikan aktiviti Bunyi & Huruf dengan jayanya!',
@@ -53,7 +53,7 @@ const BADGE_DETAILS = {
     tahniah: 'Kemahiran ini adalah langkah pertama menjadi Pakar Fonik yang hebat!',
   },
   misi_kata: {
-    emoji: '⚡',
+    image: '/images/badge/misi-kata.png',
     color: '#5BA4CF',
     colorLight: '#EBF5FF',
     about: 'Anugerah ini diberikan kepada kamu kerana telah berjaya membina perkataan KVK dengan jayanya!',
@@ -65,7 +65,7 @@ const BADGE_DETAILS = {
     tahniah: 'Kamu sudah boleh membina perkataan sendiri. Hebat sekali!',
   },
   cari_rima: {
-    emoji: '🎵',
+    image: '/images/badge/cari-rima.png',
     color: '#5DB87A',
     colorLight: '#EDFBF2',
     about: 'Anugerah ini diberikan kepada kamu kerana telah menguasai corak rima Bahasa Melayu dengan jayanya!',
@@ -77,7 +77,7 @@ const BADGE_DETAILS = {
     tahniah: 'Kamu sudah menjadi juara rima! Teruskan semangat belajar!',
   },
   pakar_fonik: {
-    emoji: '🎓',
+    image: '/images/badge/pakar-fonik.png',
     color: '#9B59B6',
     colorLight: '#FAF0FF',
     about: 'Tahniah! Kamu telah menyelesaikan SEMUA modul pembelajaran Fonik Bahasa Melayu!',
@@ -110,8 +110,7 @@ function BadgeModal({ badge, module, earned, earnedAt, onClose }) {
           {/* Left: Badge visual */}
           <div className="sd-modal-left">
             <div className="sd-modal-badge-circle">
-              <div className="sd-modal-badge-emoji">{earned ? details.emoji : '🔒'}</div>
-            </div>
+              <img src={details.image} alt={badge.name} className="sd-modal-badge-image" />            </div>
             <div className="sd-modal-badge-title">{badge.name}</div>
             {module && <div className="sd-modal-badge-module">{module}</div>}
             {earned && earnedDate && (
@@ -127,7 +126,7 @@ function BadgeModal({ badge, module, earned, earnedAt, onClose }) {
 
           {/* Right: Details */}
           <div className="sd-modal-right">
-            <div className="sd-modal-section-tag">Tentang Lencana ✨</div>
+            <div className="sd-modal-section-tag">Tentang Lencana </div>
             <p className="sd-modal-about">{details.about}</p>
 
             <div className="sd-modal-divider"></div>
@@ -261,7 +260,7 @@ function StudentDashboard() {
         {/* ── WELCOME HERO ── */}
         <div className="sd-hero">
           <div className="sd-hero-left">
-            <div className="sd-hero-mascot">🐻</div>
+            <img src="/images/objects/mascot.svg" alt="Teddy Mascot" className="sd-hero-mascot-img" />
             <div className="sd-hero-text">
               <p className="sd-hero-greeting">Selamat Datang,</p>
               <h1 className="sd-hero-name">{studentName}!</h1>
@@ -288,7 +287,6 @@ function StudentDashboard() {
         {/* ── CERTIFICATE BANNER ── */}
         {allModulesDone && (
           <div className="sd-cert-banner" onClick={() => navigate('/certificate')}>
-            <span className="sd-cert-icon">🎉</span>
             <div>
               <strong>Tahniah! Kamu telah menjadi Pakar Fonik!</strong>
               <p>Klik untuk lihat sijil kamu →</p>
@@ -299,7 +297,6 @@ function StudentDashboard() {
         {/* ── MODULES ── */}
         <section className="sd-section">
           <div className="sd-section-header">
-            <span className="sd-section-icon">📖</span>
             <h2>Modul Pembelajaran</h2>
           </div>
           <div className="sd-modules-grid">
@@ -348,7 +345,7 @@ function StudentDashboard() {
                     <div className="sd-locked-msg">Selesaikan modul sebelum ini dahulu untuk buka modul ini!</div>
                   ) : (
                     <button className={`sd-module-btn ${isDone ? 'done' : 'go'}`} onClick={() => handleModuleClick(module)}>
-                      {isDone ? 'Main Mini Game' : prog.completed > 0 ? 'Teruskan' : '🚀 Mula'}
+                      {isDone ? 'Main Mini Game' : prog.completed > 0 ? 'Teruskan' : ' Mula'}
                     </button>
                   )}
                 </div>
@@ -360,7 +357,6 @@ function StudentDashboard() {
         {/* ── BADGES ── */}
         <section className="sd-section">
           <div className="sd-section-header">
-            <span className="sd-section-icon">🏆</span>
             <h2>Lencana Pencapaian</h2>
             {earnedBadges.length > 0 && (
               <span className="sd-badge-hint">Klik lencana untuk lihat!</span>
@@ -377,9 +373,19 @@ function StudentDashboard() {
                   style={{ '--badge-color': module.color }}
                   onClick={() => handleBadgeClick(module.badge.id, module, earned)}
                 >
-                  <div className="sd-badge-icon-wrap">
-                    <div className="sd-badge-icon">{earned ? module.emoji : '🔒'}</div>
-                  </div>
+                  <div className="sd-badge-image-wrap">
+  <img
+    src={
+      module.badge.id === 'detektif_bunyi'
+        ? '/images/badge/detektif-bunyi.png'
+        : module.badge.id === 'misi_kata'
+        ? '/images/badge/misi-kata.png'
+        : '/images/badge/cari-rima.png'
+    }
+    alt={module.badge.name}
+    className={`sd-badge-image ${earned ? '' : 'locked'}`}
+  />
+</div>
                   <div className="sd-badge-name">{module.badge.name}</div>
                   <div className="sd-badge-desc">{module.name}</div>
                   {earned
@@ -396,9 +402,13 @@ function StudentDashboard() {
               style={{ '--badge-color': '#9B59B6' }}
               onClick={() => handleBadgeClick('pakar_fonik', null, allModulesDone)}
             >
-              <div className="sd-badge-icon-wrap">
-                <div className="sd-badge-icon">{allModulesDone ? '🎓' : '🔒'}</div>
-              </div>
+              <div className="sd-badge-image-wrap">
+  <img
+    src="/images/badge/pakar-fonik.png"
+    alt="Pakar Fonik"
+    className={`sd-badge-image ${allModulesDone ? '' : 'locked'}`}
+  />
+</div>
               <div className="sd-badge-name">Pakar Fonik</div>
               <div className="sd-badge-desc">Semua Modul</div>
               {allModulesDone

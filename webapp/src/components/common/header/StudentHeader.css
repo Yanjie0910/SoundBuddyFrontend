@@ -1,28 +1,31 @@
+.student-nav,
+.student-nav * {
+  font-family: 'OpenDyslexic', sans-serif;
+}
+
 .student-nav {
-  width: 100%; 
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding: 18px 32px;
-  background-color: #8b6b3f; 
+  background-color: #8b6b3f;
   color: white;
 
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
 
-/* Left: App name */
 .student-nav-left {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-/* Center: Greeting */
 .student-nav-center {
   font-size: 18px;
+  font-weight: 700;
 }
 
-/* Right: Actions */
 .student-nav-right {
   display: flex;
   gap: 12px;
@@ -36,7 +39,7 @@
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .student-nav-right button:hover {

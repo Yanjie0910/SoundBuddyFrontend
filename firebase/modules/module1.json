@@ -22,7 +22,7 @@
       "correctRFID": "585641647224",
       "correctLetter": "a",
       "hintText": "Ini huruf pertama dalam abjad!",
-      "pointsValue": 10
+      "pointsValue": 15
     },
     "q2": {
       "questionId": "q2",
@@ -31,18 +31,18 @@
       "visualCueImage": "bola.png",
       "correctRFID": "585633258495",
       "correctLetter": "b",
-      "hintText": "Seperti 'bola'!",
-      "pointsValue": 10
+      "hintText": "Bunyi untuk bola!",
+      "pointsValue": 15
     },
     "q3": {
       "questionId": "q3",
       "questionNumber": 3,
-      "phonemeAudio": "c.mp3",
-      "visualCueImage": "kucing.png",
-      "correctRFID": "585626969248",
-      "correctLetter": "c",
-      "hintText": "Seperti bunyi 'kucing'!",
-      "pointsValue": 10
+      "phonemeAudio": "m.mp3",
+      "visualCueImage": "meja.jpg",
+      "correctRFID": "585633239991",
+      "correctLetter": "m",
+      "hintText": "Bunyi untuk meja!",
+      "pointsValue": 15
     },
     "q4": {
       "questionId": "q4",
@@ -51,18 +51,18 @@
       "visualCueImage": "anjing.png",
       "correctRFID": "585640600407",
       "correctLetter": "d",
-      "hintText": "Seperti bunyi 'anjing'!",
-      "pointsValue": 10
+      "hintText": "Bunyi untuk dadu!",
+      "pointsValue": 15
     },
     "q5": {
       "questionId": "q5",
       "questionNumber": 5,
-      "phonemeAudio": "e.mp3",
-      "visualCueImage": "telur.jpg",
-      "correctRFID": "585625918857",
-      "correctLetter": "e",
-      "hintText": "Seperti bunyi 'telur'!",
-      "pointsValue": 10
+      "phonemeAudio": "p.mp3",
+      "visualCueImage": "pensel.jpg",
+      "correctRFID": "585633243268",
+      "correctLetter": "p",
+      "hintText": "Bunyi untuk pensel!",
+      "pointsValue": 15
     }
   }
 }

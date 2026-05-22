@@ -423,7 +423,7 @@ function MiniGameInterface() {
                   className="result-btn home-btn"
                   onClick={() => navigate('/student-dashboard')}
                 >
-                  🏠 Papan Pemuka
+                   Papan Pemuka
                 </button>
               </>
             ) : (
@@ -432,14 +432,14 @@ function MiniGameInterface() {
                   className="result-btn retry-btn"
                   onClick={() => navigate(`/learning/${mId}`)}
                 >
-                  🔄 Cuba Semula Modul
+                   Cuba Semula Modul
                 </button>
 
                 <button
                   className="result-btn home-btn"
                   onClick={() => navigate('/student-dashboard')}
                 >
-                  🏠 Papan Pemuka
+                   Papan Pemuka
                 </button>
               </>
             )}
@@ -510,10 +510,9 @@ function MiniGameInterface() {
               />
             )}
 
-            <p className="mg-word-display">
-              {currentQ.word?.toUpperCase()}
-            </p>
-
+            <button className="mg-play-btn" onClick={playSound}>
+             ▶ Dengar Perkataan
+            </button>
             <p className="mg-instruction">
               Susun blok huruf untuk bina perkataan ini!
             </p>
@@ -537,7 +536,7 @@ function MiniGameInterface() {
             </div>
 
             <button className="mg-play-btn" onClick={playSound}>
-              🔊 Dengar
+               Dengar
             </button>
 
             <p className="mg-instruction">

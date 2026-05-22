@@ -4,7 +4,7 @@
 .cert-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #1a0533, #2d0a5e);
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,176 +12,222 @@
 }
 
 .cert-loading {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  height: 100vh; color: white; gap: 1rem;
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  height: 100vh; 
+  color: white; 
+  gap: 1rem;
 }
 
-.cert-spinner { font-size: 4rem; animation: spin 2s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.cert-spinner { 
+  font-size: 4rem; 
+  animation: spin 2s linear infinite; 
+}
+
+@keyframes spin { 
+  to { transform: rotate(360deg); } 
+}
 
 /* ── ACTIONS ── */
 .cert-actions {
-  display: flex; gap: 1rem;
-  margin-bottom: 1rem;
-  max-width: 820px; width: 100%;
+  display: flex; 
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  max-width: 1050px; 
+  width: 100%;
 }
 
 .cert-back-btn {
-  padding: 0.5rem 1.2rem;
-  border-radius: 10px; border: 2px solid rgba(255,255,255,0.3);
+  padding: 0.6rem 1.4rem;
+  border-radius: 10px; 
+  border: 2px solid rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.15);
-  color: white; font-weight: 700; cursor: pointer;
-  font-family: 'Nunito', sans-serif; font-size: 0.9rem;
+  color: white; 
+  font-weight: 700; 
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif; 
+  font-size: 0.95rem;
   transition: all 0.2s;
 }
 
-.cert-back-btn:hover { background: rgba(255,255,255,0.25); }
+.cert-back-btn:hover { 
+  background: rgba(255,255,255,0.25); 
+}
 
 .cert-print-btn {
-  padding: 0.5rem 1.5rem;
-  border-radius: 10px; border: 3px solid #FF8C00;
+  padding: 0.6rem 1.8rem;
+  border-radius: 10px; 
+  border: 3px solid #FF8C00;
   background: linear-gradient(135deg, #FFD700, #FF8C00);
-  color: #333; font-weight: 800; cursor: pointer;
-  font-family: 'Nunito', sans-serif; font-size: 0.9rem;
+  color: #333; 
+  font-weight: 800; 
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif; 
+  font-size: 0.95rem;
   box-shadow: 0 4px 12px rgba(255,200,0,0.4);
   transition: all 0.2s;
 }
 
-.cert-print-btn:hover { transform: translateY(-2px); }
+.cert-print-btn:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 16px rgba(255,200,0,0.5);
+}
 
 /* ── CONTAINER ── */
-.cert-container { max-width: 820px; width: 100%; }
+.cert-container { 
+  max-width: 1050px; 
+  width: 100%; 
+}
 
-/* ── CERTIFICATE ── */
+/* ── CERTIFICATE ── ✨ IMPROVED SPACING */
 .certificate {
   background: linear-gradient(160deg, #FFF9F0 0%, #FFFDE8 50%, #F0F8FF 100%);
   border-radius: 24px;
   border: 5px solid #FFD700;
   box-shadow: 0 0 0 3px #FF8C00, 0 20px 60px rgba(0,0,0,0.5);
-  padding: 1.5rem 2.5rem 1.2rem;
+  padding: 2.5rem 3rem 2rem; /* ✅ INCREASED from 1.5rem 2.5rem 1.2rem */
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.7rem; /* ✅ tight gap keeps everything on 1 page */
+  gap: 1.2rem; /* ✅ INCREASED from 0.7rem */
+  min-height: 750px; /* ✅ ADDED to ensure proper height */
 }
 
-.certificate.locked { filter: grayscale(0.4); }
+.certificate.locked { 
+  filter: grayscale(0.4); 
+}
 
-/* ── DECORATIONS ── */
+/* ── DECORATIONS ── ✨ ENHANCED STARS */
 .cert-star {
   position: absolute;
-  font-size: 2.2rem;
-  animation: star-pulse 2s ease-in-out infinite;
-  filter: drop-shadow(0 2px 6px rgba(255,215,0,0.6));
+  font-size: 2.5rem; /* ✅ INCREASED from 2.2rem */
+  filter: drop-shadow(0 2px 8px rgba(255,215,0,0.7));
   z-index: 0;
+  animation: star-pulse 3s ease-in-out infinite;
 }
 
-.cert-star-tl { top: 1rem; left: 1rem; animation-delay: 0s; }
-.cert-star-tr { top: 1rem; right: 1rem; animation-delay: 0.5s; }
+.cert-star-tl { 
+  top: 1.5rem; 
+  left: 1.5rem; 
+  animation-delay: 0s; 
+}
+
+.cert-star-tr { 
+  top: 1.5rem; 
+  right: 1.5rem; 
+  animation-delay: 0.5s; 
+}
 
 @keyframes star-pulse {
   0%, 100% { transform: scale(1) rotate(-10deg); }
-  50% { transform: scale(1.2) rotate(10deg); }
+  50% { transform: scale(1.15) rotate(10deg); }
 }
 
-.cert-rainbow-left, .cert-rainbow-right {
-  position: absolute;
-  bottom: 55px;
-  font-size: 4rem;
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.cert-rainbow-left { left: -0.5rem; transform: scaleX(-1); }
-.cert-rainbow-right { right: -0.5rem; }
 
 /* ── HEADER ── */
 .cert-header {
   text-align: center;
-  position: relative; z-index: 1;
-  line-height: 1.2;
+  position: relative; 
+  z-index: 1;
+  line-height: 1.3;
+  margin-bottom: 0.5rem; /* ✅ ADDED spacing */
 }
 
-.cert-logo { font-size: 2.2rem; }
+.cert-logo { 
+  font-size: 2.5rem; 
+}
 
 .cert-school {
   font-family: 'Fredoka One', sans-serif;
-  font-size: 2rem;
+  font-size: 2.2rem; /* ✅ INCREASED from 2rem */
   letter-spacing: 2px;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .cert-subtitle {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: #666;
   letter-spacing: 0.5px;
-  margin-top: 0.1rem;
+  margin-top: 0.3rem;
 }
 
-/* ── TITLE BANNER ── */
+/* ── TITLE BANNER ── ✨ ENHANCED */
 .cert-title-banner {
   background: linear-gradient(135deg, #7B2FBE, #9C27B0);
   color: white;
-  padding: 0.45rem 2.5rem;
-  border-radius: 10px;
+  padding: 0.65rem 3rem; /* ✅ INCREASED from 0.45rem 2.5rem */
+  border-radius: 12px;
   font-family: 'Fredoka One', sans-serif;
-  font-size: 1.3rem;
-  letter-spacing: 2px;
-  box-shadow: 0 3px 14px rgba(123,47,190,0.4);
-  position: relative; z-index: 1;
+  font-size: 1.5rem; /* ✅ INCREASED from 1.3rem */
+  letter-spacing: 3px;
+  box-shadow: 0 4px 16px rgba(123,47,190,0.5);
+  position: relative; 
+  z-index: 1;
+  margin-bottom: 0.5rem; /* ✅ ADDED spacing */
 }
 
-/* ── NAME ── */
+/* ── NAME SECTION ── ✨ IMPROVED SPACING */
 .cert-awarded-to {
-  font-size: 0.72rem;
+  font-size: 0.78rem; /* ✅ INCREASED from 0.72rem */
   color: #888;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  margin-bottom: -0.4rem;
+  margin-bottom: 0.3rem; /* ✅ INCREASED from -0.4rem */
+  font-weight: 700;
 }
 
 .cert-name {
   font-family: 'Fredoka One', sans-serif;
-  font-size: 2.8rem;
+  font-size: 3.2rem; /* ✅ INCREASED from 2.8rem */
   color: #2d0a5e;
   text-align: center;
-  border-bottom: 3px solid #FFD700;
-  padding-bottom: 0.3rem;
-  min-width: 240px;
-  letter-spacing: 2px;
+  border-bottom: 4px solid #FFD700; /* ✅ INCREASED from 3px */
+  padding-bottom: 0.5rem; /* ✅ INCREASED from 0.3rem */
+  min-width: 280px;
+  letter-spacing: 3px;
   line-height: 1;
-  position: relative; z-index: 1;
+  position: relative; 
+  z-index: 1;
+  margin-bottom: 1rem; /* ✅ ADDED spacing */
 }
 
-/* ── DESCRIPTION ── */
+/* ── DESCRIPTION ── ✨ IMPROVED READABILITY */
 .cert-description {
   text-align: center;
   color: #555;
-  line-height: 1.5;
-  font-size: 0.88rem;
-  position: relative; z-index: 1;
+  line-height: 1.7; /* ✅ INCREASED from 1.5 */
+  font-size: 0.95rem; /* ✅ INCREASED from 0.88rem */
+  position: relative; 
+  z-index: 1;
+  max-width: 550px; /* ✅ ADDED to control line length */
+  margin-bottom: 0.8rem; /* ✅ ADDED spacing */
 }
 
-.cert-description p { margin: 0; }
+.cert-description p { 
+  margin: 0 0 0.5rem; /* ✅ ADDED bottom margin */
+}
 
 .cert-pakar {
   font-family: 'Fredoka One', sans-serif;
-  font-size: 1.6rem;
+  font-size: 2rem; /* ✅ INCREASED from 1.6rem */
   color: #7B2FBE;
-  margin-top: 0.2rem;
+  margin-top: 0.5rem; /* ✅ INCREASED from 0.2rem */
+  letter-spacing: 1px;
 }
 
-/* ── BOTTOM ROW: stats + badges side by side ── */
+/* ── BOTTOM ROW ── ✨ BETTER SPACING */
 .cert-bottom-row {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  position: relative; z-index: 1;
+  gap: 1rem; /* ✅ INCREASED from 0.6rem */
+  position: relative; 
+  z-index: 1;
+  margin-top: 1rem; /* ✅ ADDED top spacing */
 }
 
 /* ── STATS BOX ── */
@@ -190,48 +236,52 @@
   align-items: center;
   justify-content: center;
   gap: 0;
-  background: rgba(255,255,255,0.85);
-  border: 2px solid rgba(123,47,190,0.15);
-  border-radius: 14px;
-  padding: 0.6rem 1rem;
+  background: rgba(255,255,255,0.9); /* ✅ INCREASED opacity */
+  border: 2px solid rgba(123,47,190,0.2);
+  border-radius: 16px;
+  padding: 1rem 1.5rem; /* ✅ INCREASED from 0.6rem 1rem */
   width: 100%;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08); /* ✅ ADDED shadow */
 }
 
 .cert-stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
+  gap: 0.2rem; /* ✅ INCREASED from 0.1rem */
   flex: 1;
 }
 
-.cert-stat-icon { font-size: 1.3rem; }
+.cert-stat-icon { 
+  font-size: 1.6rem; /* ✅ INCREASED from 1.3rem */
+}
 
 .cert-stat-val {
   font-family: 'Fredoka One', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.6rem; /* ✅ INCREASED from 1.4rem */
   color: #7B2FBE;
   line-height: 1;
 }
 
 .cert-stat-lbl {
-  font-size: 0.65rem;
+  font-size: 0.7rem; /* ✅ INCREASED from 0.65rem */
   color: #888;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .cert-stat-divider {
   width: 1px;
-  height: 40px;
+  height: 50px; /* ✅ INCREASED from 40px */
   background: rgba(0,0,0,0.1);
-  margin: 0 0.5rem;
+  margin: 0 1rem; /* ✅ INCREASED from 0.5rem */
 }
 
-/* ── BADGES ROW ── */
+/* ── BADGES ROW ── ✨ ENHANCED */
 .cert-badges-row {
   display: flex;
-  gap: 0.6rem;
+  gap: 1rem; /* ✅ INCREASED from 0.6rem */
   justify-content: center;
   align-items: stretch;
   flex-wrap: nowrap;
@@ -243,99 +293,225 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
-  padding: 0.5rem 0.6rem;
-  border-radius: 12px;
+  gap: 0.3rem; /* ✅ INCREASED from 0.1rem */
+  padding: 0.8rem 1rem; /* ✅ INCREASED from 0.5rem 0.6rem */
+  border-radius: 14px;
   background: white;
   border: 2px solid #EEE;
   flex: 1;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  transition: transform 0.2s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08); /* ✅ ENHANCED shadow */
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .cert-badge.earned {
   border-color: #FFD700;
   background: linear-gradient(135deg, #FFFBEE, #FFF8D0);
-  box-shadow: 0 3px 12px rgba(255,215,0,0.3);
+  box-shadow: 0 4px 14px rgba(255,215,0,0.35); /* ✅ ENHANCED shadow */
 }
 
-.cert-badge.earned:hover { transform: translateY(-3px); }
-.cert-badge.locked { opacity: 0.4; filter: grayscale(1); }
+.cert-badge.earned:hover { 
+  transform: translateY(-4px); /* ✅ INCREASED from -3px */
+  box-shadow: 0 6px 18px rgba(255,215,0,0.45);
+}
 
-.cert-badge-emoji { font-size: 1.5rem; }
+.cert-badge.locked { 
+  opacity: 0.35; /* ✅ REDUCED from 0.4 */
+  filter: grayscale(1); 
+}
+
+.cert-badge-emoji { 
+  font-size: 1.8rem; /* ✅ INCREASED from 1.5rem */
+}
 
 .cert-badge-name {
   font-family: 'Fredoka One', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.8rem; /* ✅ INCREASED from 0.72rem */
   color: #333;
   line-height: 1.2;
 }
 
-.cert-badge-module { font-size: 0.62rem; color: #7B2FBE; font-weight: 700; }
-.cert-badge-stars { font-size: 0.55rem; color: #FFD700; }
-
-/* ── TAHNIAH CHIP ── */
-.cert-tahniah-chip {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  border-radius: 12px;
-  padding: 0.5rem 0.7rem;
-  text-align: center;
-  flex: 1;
-  box-shadow: 0 3px 12px rgba(255,165,0,0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.1rem;
-  font-size: 1.4rem;
+.cert-badge-module { 
+  font-size: 0.68rem; /* ✅ INCREASED from 0.62rem */
+  color: #7B2FBE; 
+  font-weight: 700; 
 }
 
-.cert-tahniah-title {
-  font-family: 'Fredoka One', sans-serif;
-  font-size: 0.75rem;
-  color: #78350F;
-  letter-spacing: 1px;
+.cert-badge-stars { 
+  font-size: 0.6rem; /* ✅ INCREASED from 0.55rem */
+  color: #FFD700; 
 }
 
-.cert-tahniah-sub {
-  font-size: 0.6rem;
-  color: #92400E;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
-/* ── FOOTER ── */
+/* ── FOOTER ── ✨ IMPROVED LAYOUT */
 .cert-footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
-  padding-top: 0.2rem;
-  position: relative; z-index: 1;
+  padding-top: 1.5rem; /* ✅ INCREASED from 0.2rem */
+  margin-top: 1rem; /* ✅ ADDED top margin */
+  border-top: 1px solid rgba(0,0,0,0.08); /* ✅ ADDED separator */
+  position: relative; 
+  z-index: 1;
 }
 
+.cert-date-col { 
+  text-align: center; 
+}
 
-.cert-date-col { text-align: center; }
-.cert-date-line { width: 100px; height: 1px; background: #999; margin-bottom: 0.2rem; }
-.cert-date-val { font-size: 0.8rem; color: #555; font-weight: 700; }
-.cert-date-lbl { font-size: 0.65rem; color: #888; }
+.cert-date-line { 
+  width: 120px; /* ✅ INCREASED from 100px */
+  height: 2px; /* ✅ INCREASED from 1px */
+  background: #999; 
+  margin-bottom: 0.3rem; /* ✅ INCREASED from 0.2rem */
+}
 
-.cert-sig-col { text-align: center; }
-.cert-sig-name { font-size: 1rem; color: #2d0a5e; font-style: italic; font-weight: 700; margin-bottom: 0.2rem; }
-.cert-sig-line { width: 140px; height: 1px; background: #333; margin: 0 auto 0.2rem; }
-.cert-sig-lbl { font-size: 0.65rem; color: #666; }
+.cert-date-val { 
+  font-size: 0.88rem; /* ✅ INCREASED from 0.8rem */
+  color: #555; 
+  font-weight: 700; 
+  margin-bottom: 0.3rem; /* ✅ ADDED spacing */
+}
+
+.cert-date-lbl { 
+  font-size: 0.7rem; /* ✅ INCREASED from 0.65rem */
+  color: #888; 
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cert-sig-col { 
+  text-align: center; 
+}
+
+.cert-sig-name { 
+  font-size: 1.1rem; /* ✅ INCREASED from 1rem */
+  color: #2d0a5e; 
+  font-style: italic; 
+  font-weight: 700; 
+  margin-bottom: 0.3rem; /* ✅ INCREASED from 0.2rem */
+}
+
+.cert-sig-line { 
+  width: 160px; /* ✅ INCREASED from 140px */
+  height: 2px; /* ✅ INCREASED from 1px */
+  background: #333; 
+  margin: 0 auto 0.3rem; /* ✅ INCREASED from 0.2rem */
+}
+
+.cert-sig-lbl { 
+  font-size: 0.7rem; /* ✅ INCREASED from 0.65rem */
+  color: #666; 
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── CELEBRATORY SEAL ── ✨ NEW ELEMENT */
+.cert-seal {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #FFD700, #FFA500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(255,165,0,0.4);
+  z-index: 2;
+  animation: seal-pulse 2s ease-in-out infinite;
+}
+
+@keyframes seal-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.05); }
+}
 
 /* ── PRINT ── */
 @media print {
   .cert-actions { display: none; }
-  .cert-page { background: white; padding: 0; min-height: unset; }
-  .cert-container { max-width: 100%; }
-  .certificate { box-shadow: none; border: 4px solid #FFD700; page-break-inside: avoid; }
+  .cert-page { 
+    background: white; 
+    padding: 0; 
+    min-height: unset; 
+  }
+  .cert-container { 
+    max-width: 100%; 
+  }
+  .certificate { 
+    box-shadow: none; 
+    border: 4px solid #FFD700; 
+    page-break-inside: avoid;
+    min-height: unset;
+  }
 }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .certificate { 
+    padding: 2rem 1.5rem 1.5rem;
+    gap: 1rem;
+    min-height: unset;
+  }
+  
+  .cert-name { 
+    font-size: 2.4rem; 
+    min-width: 200px;
+  }
+  
+  .cert-school { 
+    font-size: 1.8rem; 
+  }
+  
+  .cert-title-banner {
+    font-size: 1.2rem;
+    padding: 0.5rem 2rem;
+  }
+  
+  .cert-pakar {
+    font-size: 1.6rem;
+  }
+  
+  .cert-stats-box {
+    padding: 0.8rem 1rem;
+  }
+  
+  .cert-stat-divider {
+    margin: 0 0.5rem;
+  }
+}
+
 @media (max-width: 600px) {
-  .certificate { padding: 1.2rem 1rem; }
-  .cert-name { font-size: 2rem; }
-  .cert-school { font-size: 1.5rem; }
-  .cert-badges-row { flex-wrap: wrap; }
+  .certificate { 
+    padding: 1.5rem 1rem;
+    gap: 0.8rem;
+  }
+  
+  .cert-name { 
+    font-size: 2rem; 
+  }
+  
+  .cert-school { 
+    font-size: 1.5rem; 
+  }
+  
+  .cert-badges-row { 
+    flex-wrap: wrap; 
+  }
+  
+  .cert-badge {
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .cert-description {
+    font-size: 0.85rem;
+  }
+  
+  .cert-footer {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
 }

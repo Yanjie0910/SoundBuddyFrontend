@@ -175,25 +175,21 @@ function LearningInterface() {
   );
 
   const completeLearningModule = useCallback(async () => {
-    await calculateModuleStats();
+  await calculateModuleStats();
 
-    if (sessionPath) {
-      await update(ref(database, sessionPath), {
-        gameMode: false,
-        gameQuestion: null,
-        lastGameAttempt: null,
-        placedLetters: [],
-        learningCompleted: true,
-        completedModule: activeModuleId,
-      });
-    }
+  if (sessionPath) {
+    await update(ref(database, sessionPath), {
+      gameMode: false,
+      gameQuestion: null,
+      lastGameAttempt: null,
+      placedLetters: [],
+      learningCompleted: true,
+      completedModule: activeModuleId,
+    });
+  }
 
-    setFeedback(null);
-    setShowHint(false);
-    setShowAnswer(false);
-    setIsTransitioning(false);
-    setShowCompletion(true);
-  }, [calculateModuleStats, sessionPath, activeModuleId]);
+  navigate(`/learning-results/${activeModuleId}`);
+}, [calculateModuleStats, sessionPath, activeModuleId, navigate]);
 
   const handleCorrectAnswer = useCallback(
     (attemptData) => {
@@ -567,13 +563,9 @@ function LearningInterface() {
                   />
 
                   <button className="mini-speaker-button" onClick={playSound}>
-                    Dengar perkataan: {currentQuestion.word}
+                    Dengar perkataan: 
                   </button>
                 </div>
-
-                <p className="q-instruction">
-                  Bina perkataan: <strong>{currentQuestion.word?.toUpperCase()}</strong>
-                </p>
 
                 <div className="letter-slots">
                   {(currentQuestion.letters || []).map((letter, i) => (

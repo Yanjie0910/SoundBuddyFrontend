@@ -18,7 +18,7 @@
       "questionNumber": 1,
       "word": "bas",
       "wordAudio": "bas.mp3",
-      "visualCueImage": "bas.jpg",
+      "visualCueImage": "bas.png",
       "letters": ["b", "a", "s"],
       "hintText": "B-A-S. Kenderaan awam yang besar!",
       "pointsValue": 15
@@ -28,7 +28,7 @@
       "questionNumber": 2,
       "word": "dan",
       "wordAudio": "dan.mp3",
-      "visualCueImage": "dan.jpg",
+      "visualCueImage": "dan.png",
       "letters": ["d", "a", "n"],
       "hintText": "D-A-N. Kata hubung!",
       "pointsValue": 15
@@ -38,7 +38,7 @@
       "questionNumber": 3,
       "word": "jus",
       "wordAudio": "jus.mp3",
-      "visualCueImage": "jus.jpg",
+      "visualCueImage": "jus.png",
       "letters": ["j", "u", "s"],
       "hintText": "J-U-S. Minuman lazat!",
       "pointsValue": 15
@@ -48,7 +48,7 @@
       "questionNumber": 4,
       "word": "cat",
       "wordAudio": "cat_word.mp3",
-      "visualCueImage": "cat_paint.jpg",
+      "visualCueImage": "cat_paint.png",
       "letters": ["c", "a", "t"],
       "hintText": "C-A-T. Untuk mewarna!",
       "pointsValue": 15
@@ -58,7 +58,7 @@
       "questionNumber": 5,
       "word": "beg",
       "wordAudio": "beg.mp3",
-      "visualCueImage": "beg.jpg",
+      "visualCueImage": "beg.png",
       "letters": ["b", "e", "g"],
       "hintText": "B-E-G. Tempat simpan barang!",
       "pointsValue": 15

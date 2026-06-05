@@ -532,7 +532,7 @@ function LearningInterface() {
               <div className="answer-mode animate-glow">
                 <p className="instruction-text">Jawapannya ialah:</p>
                 <div className="big-letter-display">
-                  {currentQuestion.correctLetter?.toUpperCase()}
+                  {currentQuestion.correctLetter}
                 </div>
                 <img
                   src={`/images/objects/${currentQuestion.visualCueImage}`}
@@ -573,7 +573,7 @@ function LearningInterface() {
                       key={i}
                       className={`letter-slot ${placedLetters[i] ? "filled" : "empty"}`}
                     >
-                      {placedLetters[i] ? placedLetters[i].toUpperCase() : "_"}
+                      {placedLetters[i] ? placedLetters[i] : "_"}
                     </div>
                   ))}
                 </div>
@@ -595,7 +595,7 @@ function LearningInterface() {
                 <div className="kvk-answer-display">
                   {(currentQuestion.letters || []).map((l, i) => (
                     <div key={i} className="answer-letter-block">
-                      {l.toUpperCase()}
+                   
                     </div>
                   ))}
                 </div>
@@ -616,7 +616,7 @@ function LearningInterface() {
                   <div className="base-word-card">
                     <span className="base-word-label">Perkataan asas:</span>
                     <span className="base-word">
-                      {currentQuestion.baseWord?.toUpperCase()}
+                      {currentQuestion.baseWord}
                     </span>
                   </div>
 
@@ -627,7 +627,7 @@ function LearningInterface() {
                     <span className="target-word">
                       <span className="unknown-letter">?</span>
                       <span className="known-ending">
-                        {currentQuestion.rhymePattern?.toUpperCase()}
+                        {currentQuestion.rhymePattern}
                       </span>
                     </span>
                   </div>
@@ -644,7 +644,7 @@ function LearningInterface() {
                 <div className="rhyme-display">
                   <div className="base-word-card">
                     <span className="base-word">
-                      {currentQuestion.baseWord?.toUpperCase()}
+                      {currentQuestion.baseWord}
                     </span>
                   </div>
 
@@ -654,7 +654,7 @@ function LearningInterface() {
                     <span className="target-word">
                       <span className="unknown-letter">?</span>
                       <span className="known-ending">
-                        {currentQuestion.rhymePattern?.toUpperCase()}
+                        {currentQuestion.rhymePattern}
                       </span>
                     </span>
                   </div>
@@ -672,9 +672,9 @@ function LearningInterface() {
               <div className="answer-mode animate-glow">
                 <p className="instruction-text">Jawapannya ialah:</p>
                 <div className="big-letter-display">
-                  {currentQuestion.correctLetter?.toUpperCase()}
+                  {currentQuestion.correctLetter}
                 </div>
-                <p className="answer-word">{currentQuestion.targetWord?.toUpperCase()}</p>
+                <p className="answer-word">{currentQuestion.targetWord}</p>
                 <p className="hint-text">Ke soalan seterusnya dalam 3 saat...</p>
               </div>
             )}

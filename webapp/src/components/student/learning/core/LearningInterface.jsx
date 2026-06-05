@@ -599,9 +599,10 @@ function LearningInterface() {
 
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
-    <div className="learning-interface">
+    <div className={`learning-interface module-${activeModuleId}`}>
       <audio ref={audioRef} hidden />
       <audio ref={feedbackAudioRef} hidden />
+       
 
       {/* ✅ Error Banner */}
       {error && (
@@ -702,7 +703,7 @@ function LearningInterface() {
                     Dengar bunyi dan pilih huruf yang betul
                   </p>
                   <button className="massive-speaker-button" onClick={playSound}>
-                    <span className="speaker-icon">▶</span>
+                    ▶
                   </button>
                   <p className="instruction-text">Tekan untuk dengar bunyi!</p>
                 </div>
@@ -734,7 +735,7 @@ function LearningInterface() {
               <div className="answer-mode animate-glow">
                 <p className="instruction-text">Jawapannya ialah:</p>
                 <div className="big-letter-display">
-                  {currentQuestion.correctLetter?.toUpperCase()}
+                  {currentQuestion.correctLetter}
                 </div>
                 <img
                   src={`/images/objects/${currentQuestion.visualCueImage}`}
@@ -780,7 +781,7 @@ function LearningInterface() {
                         }`}
                       >
                         {placedLetters[i]
-                          ? placedLetters[i].toUpperCase()
+                          ? placedLetters[i]
                           : "_"}
                       </div>
                     ))}
@@ -803,7 +804,7 @@ function LearningInterface() {
                 <div className="kvk-answer-display">
                   {(currentQuestion.letters || []).map((letter, i) => (
                     <div key={i} className="answer-letter-block">
-                      {letter.toUpperCase()}
+                      {letter}
                     </div>
                   ))}
                 </div>
@@ -825,7 +826,7 @@ function LearningInterface() {
                   <div className="base-word-card">
                     <span className="base-word-label">Perkataan asas:</span>
                     <span className="base-word">
-                      {currentQuestion.baseWord?.toUpperCase()}
+                      {currentQuestion.baseWord}
                     </span>
                   </div>
                   <div className="arrow-right">→</div>
@@ -835,7 +836,7 @@ function LearningInterface() {
                       <span className="known-ending">
                         {currentQuestion.rhymePattern
                           ?.replace("-", "")
-                          .toUpperCase()}
+                          }
                       </span>
                     </span>
                   </div>
@@ -851,7 +852,7 @@ function LearningInterface() {
                 <div className="rhyme-display">
                   <div className="base-word-card">
                     <span className="base-word">
-                      {currentQuestion.baseWord?.toUpperCase()}
+                      {currentQuestion.baseWord}
                     </span>
                   </div>
                   <div className="arrow-right">→</div>
@@ -861,7 +862,7 @@ function LearningInterface() {
                       <span className="known-ending">
                         {currentQuestion.rhymePattern
                           ?.replace("-", "")
-                          .toUpperCase()}
+                         }
                       </span>
                     </span>
                   </div>
@@ -880,11 +881,11 @@ function LearningInterface() {
                   {currentQuestion.acceptedAnswers?.map((answer, index) => (
                     <div key={index} className="accepted-answer-card">
                       <div className="big-letter-display">
-                        {answer.letter?.toUpperCase()}
+                        {answer.letter}
                       </div>
 
                       <p className="answer-word">
-                        {answer.word?.toUpperCase()}
+                        {answer.word}
                       </p>
                     </div>
                   ))}
@@ -963,6 +964,8 @@ function LearningInterface() {
           <span>Letakkan blok huruf pada pembaca</span>
         </div>
       )}
+      
+      
     </div>
   );
 }

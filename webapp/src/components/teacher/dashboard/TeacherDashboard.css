@@ -1413,15 +1413,20 @@
 }
 
 .heatmap-tile {
-  background: linear-gradient(135deg, 
-    hsl(40, 60%, calc(100% - var(--heat) * 0.5)), 
-    hsl(30, 70%, calc(95% - var(--heat) * 0.6))
-  );
-  border: 2px solid hsl(40, 50%, calc(85% - var(--heat) * 0.4));
-  border-radius: 14px;
+  background: white;
+  border-left: 1px solid #eadfce;
+  border-top: 1px solid #eadfce;
+  border-right: 1px solid #eadfce;
+  border-bottom: 1px solid #eadfce;
+  border-radius: 6px;
   padding: 1rem;
   text-align: center;
   transition: all 0.2s;
+}
+
+.heatmap-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(142, 108, 63, 0.12);
 }
 
 .heatmap-tile:hover {
@@ -1535,5 +1540,27 @@
 
   .confusion-heatmap-grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }}
+  @media print {
+  .dashboard-nav { display: none; }
+  .teacher-dashboard-wrapper { padding-top: 0; }
+  .dashboard-content { padding: 1rem; }
+  .action-btn, .generate-report-btn, .logout-btn { display: none; }
+  
+  .report-student-card {
+    break-inside: avoid;
+    border: 2px solid #ccc;
+    margin-bottom: 1rem;
   }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .stat-card, .panel, .analytics-card {
+    box-shadow: none;
+    border: 1.5px solid #ddd;
+  }
+
 }

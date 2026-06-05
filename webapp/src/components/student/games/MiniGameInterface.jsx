@@ -7,7 +7,7 @@ import './MiniGameInterface.css';
 const GAME_CONFIG = {
   1: {
     dbPath: 'module1',
-    name: 'Cabaran Bunyi Huruf',
+    name: 'Detektif Bunyi',
     badgeId: 'detektif_bunyi',
     badgeName: 'Detektif Bunyi',
     nextModule: 2
@@ -452,7 +452,7 @@ function MiniGameInterface() {
   const qNum = currentQIdx + 1;
 
   return (
-    <div className="minigame-interface">
+    <div className={`minigame-interface game-theme-${mId}`}>
       <audio ref={audioRef} />
       <audio ref={feedbackAudioRef} />
 
@@ -477,7 +477,7 @@ function MiniGameInterface() {
         </div>
 
         <div className="mg-score">
-          {Object.values(answers).filter((a) => a?.isCorrect).length}/{totalQ}
+          <span className="mg-score-qnum">Q{qNum}/{totalQ}</span>
         </div>
       </div>
 
@@ -523,7 +523,7 @@ function MiniGameInterface() {
           <div className="mg-rhyme-mode">
             <div className="mg-rhyme-row">
               <div className="mg-base-word">
-                {currentQ.baseWord?.toUpperCase()}
+                {currentQ.baseWord}
               </div>
 
               <div className="mg-arrow">→</div>
@@ -531,7 +531,8 @@ function MiniGameInterface() {
               <div className="mg-target">
                 <span className="mg-unknown">?</span>
                 <span className="mg-known">
-{currentQ.rhymePattern?.replace("-", "").toUpperCase()}                </span>
+{currentQ.rhymePattern?.replace("-", "")
+}                </span>
               </div>
             </div>
 
@@ -559,7 +560,7 @@ function MiniGameInterface() {
               >
                 {scannedAnswer ? (
                   <span className="box-letter animate-pop">
-                    {scannedAnswer.toUpperCase()}
+                    {scannedAnswer}
                   </span>
                 ) : (
                   <span className="box-placeholder">?</span>
@@ -569,32 +570,29 @@ function MiniGameInterface() {
           )}
 
           {currentQ.word && (currentQ.correctLetters || currentQ.letters) && (
-            <div className="mg-answer-boxes word-build">
-              {(currentQ.correctLetters || currentQ.letters).map(
-                (letter, idx) => {
-                  const scannedLetters = scannedAnswer.split('');
-                  const hasLetter = scannedLetters[idx];
+  <div className="mg-answer-boxes word-build">
+    {(currentQ.correctLetters || currentQ.letters).map((letter, idx) => {
+      const placed = sessionState?.placedLetters || [];
+      const displayedLetter =
+        placed[idx]?.letter || placed[idx] || scannedAnswer.split('')[idx];
 
-                  return (
-                    <div
-                      key={idx}
-                      className={`answer-box ${
-                        hasLetter ? 'filled' : 'empty'
-                      }`}
-                    >
-                      {hasLetter ? (
-                        <span className="box-letter animate-pop">
-                          {scannedLetters[idx].toUpperCase()}
-                        </span>
-                      ) : (
-                        <span className="box-placeholder">_</span>
-                      )}
-                    </div>
-                  );
-                }
-              )}
-            </div>
+      return (
+        <div
+          key={idx}
+          className={`answer-box ${displayedLetter ? 'filled' : 'empty'}`}
+        >
+          {displayedLetter ? (
+            <span className="box-letter animate-pop">
+              {displayedLetter}
+            </span>
+          ) : (
+            <span className="box-placeholder">_</span>
           )}
+        </div>
+      );
+    })}
+  </div>
+)}
 
           {currentQ.rhymePattern && currentQ.acceptedAnswers && (
             <div className="mg-answer-boxes rhyme-pattern">
@@ -605,7 +603,7 @@ function MiniGameInterface() {
               >
                 {scannedAnswer ? (
                   <span className="box-letter animate-pop">
-                    {scannedAnswer.toUpperCase()}
+                    {scannedAnswer}
                   </span>
                 ) : (
                   <span className="box-placeholder">?</span>
@@ -618,7 +616,7 @@ function MiniGameInterface() {
   .map((letter, idx) => (
                 <div key={idx} className="answer-box filled-pattern">
                   <span className="box-letter">
-                    {letter.toUpperCase()}
+                    {letter}
                   </span>
                 </div>
               ))}

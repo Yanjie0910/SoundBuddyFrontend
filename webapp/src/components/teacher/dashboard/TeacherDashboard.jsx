@@ -363,7 +363,7 @@ function TeacherDashboard() {
     const factors = [];
 
     if (learning.accuracy > 0 && learning.accuracy < 70) {
-      factors.push('Ketepatan learning rendah');
+      factors.push('Ketepatan pembelajaran rendah');
     }
 
     if (learning.avgAttempts >= 2) {
@@ -1135,7 +1135,7 @@ function TeacherDashboard() {
                     <th>Pelajar</th>
                     <th>Kelas</th>
                     <th>Kemajuan</th>
-                    <th>Ketepatan Learning</th>
+                    <th>Ketepatan Pembelajaran</th>
                     <th>Mini Game</th>
                     <th>Mata</th>
                     <th>Lencana</th>
@@ -1215,7 +1215,13 @@ function TeacherDashboard() {
 
                         <button 
                           className="generate-report-btn"
-                          onClick={() => window.print()}
+                          onClick={() => {
+                            setSelectedStudent(s);
+                            setTimeout(() => window.print(), 300);
+
+                          }
+                            
+                          }
                         >
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <polyline points="6 9 6 2 18 2 18 9"/>
@@ -1318,7 +1324,7 @@ function TeacherDashboard() {
                   <div>
                     <h3>Analisis Sokongan Pembelajaran</h3>
                     <p>
-                      Analisis ini menggabungkan ketepatan learning, percubaan berulang,
+                      Analisis ini menggabungkan ketepatan pembelajaran, percubaan berulang,
                       prestasi mini game dan kekeliruan huruf.
                     </p>
                   </div>
@@ -1330,7 +1336,7 @@ function TeacherDashboard() {
                 <div className="support-factor-grid">
                   <div>
                     <strong>{getLearningSupportAnalysis(selectedStudent).accuracy}%</strong>
-                    <span>Ketepatan Learning</span>
+                    <span>Ketepatan Pembelajaran</span>
                   </div>
                   <div>
                     <strong>{getLearningSupportAnalysis(selectedStudent).avgAttempts}</strong>

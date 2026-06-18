@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { database } from '../../../firebase';
 import { ref, get } from 'firebase/database';
 import './StudentLogin.css';
+import BaseHeader from "../../common/header/BaseHeader";
 
 const PICTURE_EMOJIS = {
   kucing: '🐱',
@@ -118,57 +119,60 @@ function StudentLogin() {
   };
 
   return (
-    <div className="student-login-container">
-      <h2>Log Masuk Pelajar</h2>
+    <>
+      <BaseHeader showBack />
+      <div className="student-login-container">
+        <h2>Log Masuk Pelajar</h2>
 
-      <form onSubmit={handleLogin} className="student-login-form">
-        <input
-          type="text"
-          placeholder="Nama Pelajar"
-          value={studentName}
-          onChange={(e) => setStudentName(e.target.value)}
-          required
-        />
+        <form onSubmit={handleLogin} className="student-login-form">
+          <input
+            type="text"
+            placeholder="Nama Pelajar"
+            value={studentName}
+            onChange={(e) => setStudentName(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Nama Kelas"
-          value={className}
-          onChange={(e) => setClassName(e.target.value)}
-          required
-        />
+          <input
+            type="text"
+            placeholder="Nama Kelas"
+            value={className}
+            onChange={(e) => setClassName(e.target.value)}
+            required
+          />
 
-        <p>Pilih 3 gambar anda mengikut urutan:</p>
+          <p>Pilih 3 gambar anda mengikut urutan:</p>
 
-        <div className="picture-pool">
-          {Object.entries(PICTURE_EMOJIS).map(([key, emoji]) => (
-            <button
-              type="button"
-              key={key}
-              className={`pic-btn ${
-                selectedPics.includes(key) ? 'selected' : ''
-              }`}
-              onClick={() => handlePicClick(key)}
-              disabled={selectedPics.length >= 3}
-            >
-               <span className="pic-emoji">{emoji}</span> 
+          <div className="picture-pool">
+            {Object.entries(PICTURE_EMOJIS).map(([key, emoji]) => (
+              <button
+                type="button"
+                key={key}
+                className={`pic-btn ${
+                  selectedPics.includes(key) ? 'selected' : ''
+                }`}
+                onClick={() => handlePicClick(key)}
+                disabled={selectedPics.length >= 3}
+              >
+                <span className="pic-emoji">{emoji}</span>
+              </button>
+            ))}
+          </div>
+
+          {selectedPics.length > 0 && (
+            <button type="button" className="reset-btn" onClick={handleReset}>
+              Set Semula
             </button>
-          ))}
-        </div>
+          )}
 
-        {selectedPics.length > 0 && (
-          <button type="button" className="reset-btn" onClick={handleReset}>
-            Set Semula
+          {error && <div className="student-login-error">{error}</div>}
+
+          <button type="submit" disabled={selectedPics.length !== 3 || loading}>
+            {loading ? 'Sedang log masuk...' : 'Log Masuk'}
           </button>
-        )}
-
-        {error && <div className="student-login-error">{error}</div>}
-
-        <button type="submit" disabled={selectedPics.length !== 3 || loading}>
-          {loading ? 'Sedang log masuk...' : 'Log Masuk'}
-        </button>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 }
 

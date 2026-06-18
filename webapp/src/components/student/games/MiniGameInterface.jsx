@@ -404,7 +404,7 @@ function MiniGameInterface() {
                 {mId < 3 && (
                   <button
                     className="result-btn next-btn"
-                    onClick={() => navigate(`/instruction/${mId + 1}`)}
+                    onClick={() => navigate(`/instruction/learning/${mId + 1}`)}
                   >
                     Modul Seterusnya →
                   </button>

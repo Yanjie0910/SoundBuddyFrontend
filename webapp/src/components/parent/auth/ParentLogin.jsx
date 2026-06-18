@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import '../../auth/AuthForm.css';
+import BaseHeader from "../../common/header/BaseHeader";
 
 function ParentLogin() {
   const navigate = useNavigate();
@@ -23,36 +24,40 @@ function ParentLogin() {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Log Masuk Ibu Bapa</h2>
+    <>
+      <BaseHeader showBack />
 
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Emel"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+      <div className="auth-container">
+        <h2>Log Masuk Ibu Bapa</h2>
 
-        <input
-          type="password"
-          placeholder="Kata Laluan"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Emel"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        {error && <div className="auth-error">{error}</div>}
+          <input
+            type="password"
+            placeholder="Kata Laluan"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <button type="submit">Log Masuk</button>
-      </form>
+          {error && <div className="auth-error">{error}</div>}
 
-      <div className="auth-link">
-       Belum mempunyai akaun?{' '}
-           <span onClick={() => navigate('/parent-signup')}>Daftar</span>
+          <button type="submit">Log Masuk</button>
+        </form>
+
+        <div className="auth-link">
+          Belum mempunyai akaun?{' '}
+          <span onClick={() => navigate('/parent-signup')}>Daftar</span>
+        </div>
       </div>
-    </div>
+    </> 
   );
 }
 

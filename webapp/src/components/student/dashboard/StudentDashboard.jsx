@@ -236,8 +236,15 @@ function StudentDashboard() {
     const status = getModuleStatus(module);
     const prog = getModuleProgress(module.key);
     if (status === 'locked') return;
-    if (prog.completed >= prog.total) { navigate(`/minigame/${module.id}`); return; }
-    navigate(`/instruction/${module.id}`);
+if (badges[module.badge.id]?.earned) {
+  navigate(`/instruction/learning/${module.id}`);
+  return;
+}
+
+if (prog.completed >= prog.total) {
+  navigate(`/instruction/minigame/${module.id}`);
+  return;
+}    navigate(`/instruction/learning/${module.id}`);
   };
 
   const statusLabel = {
@@ -344,9 +351,18 @@ function StudentDashboard() {
                   {isLocked ? (
                     <div className="sd-locked-msg">Selesaikan modul sebelum ini dahulu untuk buka modul ini!</div>
                   ) : (
-                    <button className={`sd-module-btn ${isDone ? 'done' : 'go'}`} onClick={() => handleModuleClick(module)}>
-                      {isDone ? 'Main Mini Game' : prog.completed > 0 ? 'Teruskan' : ' Mula'}
-                    </button>
+                    <button
+  className={`sd-module-btn ${isDone ? 'done' : 'go'}`}
+  onClick={() => handleModuleClick(module)}
+>
+  {badgeEarned
+    ? ' Ulang Modul'
+    : isDone
+    ? ' Main Mini Game'
+    : prog.completed > 0
+    ? 'Teruskan'
+    : 'Mula'}
+</button>
                   )}
                 </div>
               );

@@ -39,12 +39,12 @@ function App() {
 
         <Route path="/student-login" element={<StudentLogin />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/instruction/:moduleId" element={<InstructionScreen />} />
+        <Route path="/instruction/:type/:moduleId" element={<InstructionScreen />} />
         <Route path="/learning/:moduleId" element={<LearningInterface />} />
-<Route path="/minigame/:moduleId" element={<MiniGameInterface />} />
-<Route path="/learning-results/:moduleId" element={<LearningResults />} />
-<Route path="/certificate" element={<CertificatePage />} />        
-<Route path="/teacher-login" element={<TeacherLogin />} />
+        <Route path="/minigame/:moduleId" element={<MiniGameInterface />} />
+        <Route path="/learning-results/:moduleId" element={<LearningResults />} />
+        <Route path="/certificate" element={<CertificatePage />} />        
+        <Route path="/teacher-login" element={<TeacherLogin />} />
         <Route path="/teacher-signup" element={<TeacherSignup />} />
         <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
 

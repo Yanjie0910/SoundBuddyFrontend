@@ -155,7 +155,7 @@ function LearningResults() {
           <button 
             className="primary-btn"
             style={{ background: config.color }}
-            onClick={() => navigate(`/minigame/${mId}`)}
+            onClick={() => navigate(`/instruction/minigame/${mId}`)}
           >
              Main Mini Game
           </button>

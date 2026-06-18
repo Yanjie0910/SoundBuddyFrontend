@@ -1,158 +1,270 @@
 @import "../../../../theme/theme.css";
 
-.instruction-loading { display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#1a0533;color:white;gap:1rem; }
-.inst-spinner { font-size:3rem;animation:bounce 0.8s infinite alternate; }
-@keyframes bounce { to{transform:translateY(-10px);} }
-
-.instruction-screen {
-  min-height:100vh;background:linear-gradient(135deg,#fef3e2 0%,#fae8d4 100%);
-  display:flex;align-items:center;justify-content:center;padding:1.5rem;
-}
-.instruction-card {
-  background:white;border-radius:24px;padding:2.5rem;max-width:500px;width:100%;
-  box-shadow:0 8px 40px rgba(0,0,0,0.12);display:flex;flex-direction:column;align-items:center;gap:1.5rem;
-}
-.inst-module-badge {
-  display:flex;align-items:center;gap:0.5rem;color:white;font-weight:800;
-  padding:0.5rem 1.2rem;border-radius:20px;font-size:0.95rem;
-}
-.inst-emoji { font-size:1.3rem; }
-.inst-title { font-size:2rem;font-weight:900;color:#333;text-align:center;margin:0; }
-.inst-desc { color:#666;text-align:center;margin:0;line-height:1.6; }
-
-.inst-how-to { background:#f8f8f8;border-radius:16px;padding:1.5rem;width:100%; }
-.inst-how-to h3 { font-size:1.1rem;font-weight:800;color:#333;margin:0 0 1rem; }
-.inst-steps { list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.8rem; }
-.inst-step { display:flex;align-items:flex-start;gap:0.8rem; }
-.step-num {
-  width:28px;height:28px;border-radius:50%;color:white;display:flex;align-items:center;
-  justify-content:center;font-weight:800;font-size:0.85rem;flex-shrink:0;
-}
-.step-text { font-size:0.95rem;color:#555;padding-top:0.2rem;line-height:1.5; }
-
-.inst-rfid-demo {
-  display:flex;align-items:center;gap:0.8rem;background:#f0f8ff;padding:1rem 1.5rem;
-  border-radius:12px;font-size:1.2rem;
-}
-.demo-block {
-  width:50px;height:50px;border-radius:10px;border:3px solid;display:flex;align-items:center;
-  justify-content:center;font-size:1.5rem;font-weight:900;color:#333;background:white;
-}
-.demo-arrow { color:#aaa;font-size:1.3rem; }
-.demo-reader { font-size:2rem; }
-.demo-feedback { font-size:2rem; }
-
-.inst-ready-btn {
-  width:100%;padding:1.1rem;border:none;border-radius:16px;color:white;
-  font-size:1.2rem;font-weight:800;cursor:pointer;transition:filter 0.2s,transform 0.1s;
-}
-.inst-ready-btn:hover { filter:brightness(0.92); }
-.inst-ready-btn:active { transform:scale(0.98); }
-.inst-back-btn {
-  background:none;border:none;color:#888;cursor:pointer;font-size:0.9rem;text-decoration:underline;
-}
-.learning-completion-page {
+.instruction-loading {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff7f1 0%, #f3fbff 100%);
+  background: #fffbea;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 16px;
+  color: #3b2a20;
+}
+
+.inst-spinner {
+  font-size: 48px;
+  animation: bounce 0.8s infinite alternate;
+}
+
+@keyframes bounce {
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.instruction-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fffbea 0%, #fff3d8 100%);
   padding: 24px;
 }
 
-.completion-card {
-  width: min(520px, 92vw);
-  background: #ffffff;
-  border-radius: 28px;
-  padding: 36px 32px;
+.instruction-header {
+  width: 100%;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.instruction-screen::before {
+  content: "★ ✦ ★ ✦ ★ ✦ ★";
+  position: absolute;
+  top: 120px;
+  left: 80px;
+  right: 80px;
   text-align: center;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
-  border: 3px solid rgba(255, 140, 105, 0.25);
-}
-
-.completion-label {
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: #fff1e9;
-  color: #c85f3f;
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-.completion-card h1 {
   font-size: 34px;
-  margin: 0 0 12px;
-  color: #2d2d2d;
+  letter-spacing: 90px;
+  color: rgba(255, 193, 7, 0.22);
+  pointer-events: none;
 }
 
-.completion-subtitle {
-  font-size: 17px;
-  color: #666;
-  margin-bottom: 24px;
+.instruction-screen::after {
+  content: "";
+  position: absolute;
+  bottom: 60px;
+  left: 8%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(255,159,28,0.18), transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-.completion-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin: 22px 0;
+.instruction-screen {
+  position: relative;
+  overflow: hidden;
 }
 
-.completion-stat-box {
-  background: #f8f8f8;
-  border-radius: 18px;
-  padding: 18px 12px;
+.instruction-card {
+  position: relative;
+  z-index: 1;
 }
 
-.stat-number {
-  display: block;
-  font-size: 28px;
+.inst-top-back {
+  border: none;
+  background: #ffffff;
+  color: #6b4a2f;
+  padding: 12px 20px;
+  border-radius: 14px;
   font-weight: 800;
-  color: #ff8c69;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(95, 65, 35, 0.08);
 }
 
-.stat-label {
-  display: block;
-  font-size: 13px;
-  color: #777;
-  margin-top: 4px;
+.inst-header-tag {
+  background: #fff7df;
+  border: 2px solid #f4b04e;
+  color: #7b4a10;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 900;
+  letter-spacing: 2px;
 }
 
-.completion-message {
-  background: #f6fff8;
-  border: 1px solid #cdeed3;
-  color: #376b3f;
-  padding: 14px 16px;
-  border-radius: 16px;
-  font-size: 15px;
-  margin: 22px 0;
-}
-
-.completion-actions {
+.instruction-card {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 32px;
+  padding: 42px;
+  box-shadow: 0 18px 55px rgba(100, 70, 30, 0.14);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 22px;
+  align-items: center;
+  gap: 20px;
 }
 
-.completion-primary-btn,
-.completion-secondary-btn {
-  border: none;
-  border-radius: 16px;
-  padding: 15px 18px;
-  font-size: 16px;
+.inst-icon-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #fff4cf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+}
+
+.inst-small-label {
+  margin: 0;
+  color: #d88418;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.inst-title {
+  margin: 0;
+  color: #3b2a20;
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 4px;
+}
+
+.inst-desc {
+  max-width: 560px;
+  margin: 0;
+  color: #6c5a50;
+  text-align: center;
+  line-height: 1.7;
+  font-size: 18px;
   font-weight: 700;
-  cursor: pointer;
 }
 
-.completion-primary-btn {
-  background: #ff8c69;
+.inst-how-to {
+  width: 100%;
+  background: #fff9ec;
+  border: 2px solid #f7e8c4;
+  border-radius: 24px;
+  padding: 26px;
+}
+
+.inst-how-to h3 {
+  margin: 0 0 18px;
+  color: #3b2a20;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.inst-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.inst-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ff9f1c;
   color: #ffffff;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.completion-secondary-btn {
-  background: #f0f0f0;
-  color: #333333;
+.step-text {
+  color: #4b3a30;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.inst-rfid-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: #f0f8ff;
+  border: 2px solid #d8ecff;
+  padding: 16px 24px;
+  border-radius: 20px;
+}
+
+.demo-block {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  border: 3px solid #333;
+  background: #ffffff;
+  color: #333;
+  font-size: 26px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-arrow {
+  color: #a0a0a0;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.demo-reader,
+.demo-feedback {
+  font-size: 34px;
+}
+
+.inst-ready-btn {
+  width: 100%;
+  border: none;
+  border-radius: 22px;
+  padding: 18px 24px;
+  background: #55b95a;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 12px 25px rgba(85, 185, 90, 0.25);
+  transition: transform 0.12s ease, filter 0.2s ease;
+}
+
+.inst-ready-btn:hover {
+  filter: brightness(0.96);
+}
+
+.inst-ready-btn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 640px) {
+  .instruction-card {
+    padding: 28px 22px;
+  }
+
+  .instruction-header {
+    gap: 12px;
+  }
+
+  .inst-title {
+    font-size: 30px;
+  }
+
+  .step-text {
+    font-size: 16px;
+  }
 }

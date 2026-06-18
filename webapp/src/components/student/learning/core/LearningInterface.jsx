@@ -253,9 +253,14 @@ function LearningInterface() {
         });
 
         if (feedbackAudioRef.current) {
-          feedbackAudioRef.current.src = "/audio/correct.mp3";
-          feedbackAudioRef.current.play().catch(() => {});
-        }
+  feedbackAudioRef.current.pause();
+  feedbackAudioRef.current.currentTime = 0;
+  feedbackAudioRef.current.src = "/audio/wrong.mp3";
+
+  feedbackAudioRef.current.play().catch((err) => {
+    console.error("Wrong audio error:", err);
+  });
+}
 
         saveQuestionProgress(
           currentQuestionId,

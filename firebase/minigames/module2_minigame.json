@@ -21,10 +21,10 @@
   "questions": [
     {
       "questionNumber": 1,
-      "word": "bas",
-      "wordAudio": "bas.mp3",
-      "visualCueImage": "bas.jpg",
-      "correctLetters": ["b", "a", "s"]
+      "word": "jus",
+      "wordAudio": "jus.mp3",
+      "visualCueImage": "jus.jpg",
+      "correctLetters": ["j", "u", "s"]
     },
     {
       "questionNumber": 2,
@@ -49,10 +49,10 @@
     },
     {
       "questionNumber": 5,
-      "word": "jus",
-      "wordAudio": "jus.mp3",
-      "visualCueImage": "jus.jpg",
-      "correctLetters": ["j", "u", "s"]
+      "word": "bas",
+      "wordAudio": "bas.mp3",
+      "visualCueImage": "bas.jpg",
+      "correctLetters": ["b", "a", "s"]
     },
     {
       "questionNumber": 6,

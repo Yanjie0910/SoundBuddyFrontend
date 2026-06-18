@@ -407,7 +407,9 @@ function LearningInterface() {
             attemptNumber: 0,
             isCorrect: false,
           },
-          startedAt: existingSession.startedAt || Date.now(),
+          startedAt: Date.now(),
+          learningCompleted: false,
+          gameCompleted: false,
         });
 
         setTimeout(() => { isLocalUpdate.current = false; }, 100);
@@ -560,7 +562,7 @@ function LearningInterface() {
 
     audioRef.current.src = `/audio/${audioFile}`;
     audioRef.current.play().catch((error) => {
-      console.error("❌ Audio playback failed:", error);
+      console.error("Audio playback failed:", error);
       console.error("Attempted to play:", `/audio/${audioFile}`);
     });
   };

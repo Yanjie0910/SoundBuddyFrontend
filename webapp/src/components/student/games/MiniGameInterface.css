@@ -388,7 +388,20 @@
   font-weight: 700;
   padding: 0.7rem;
 }
+.mg-back-btn {
+  border: none;
+  border-radius: 14px;
+  background: #fff8ef;
+  color: #5a3e28;
+  padding: 10px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(80, 55, 30, 0.08);
+}
 
+.mg-back-btn:hover {
+  transform: translateY(-1px);
+}
 /* ── Result screen ── */
 .mg-result-screen {
   min-height: 100vh;

@@ -25,7 +25,7 @@ const MODULE_CONFIG = {
   },
 };
 
-// ✅ Constants for delays
+//  Constants for delays
 const TRANSITION_DELAYS = {
   SHOW_ANSWER: 3000,
   FEEDBACK_DISPLAY: 1800,
@@ -51,25 +51,25 @@ function LearningInterface() {
   const [placedLetters, setPlacedLetters] = useState([]);
   const [showReflection, setShowReflection] = useState(false);
   const [pendingResultRoute, setPendingResultRoute] = useState(null);
-  const [error, setError] = useState(null); // ✅ Error state
+  const [error, setError] = useState(null); //  Error state
 
   const audioRef = useRef(null);
   const feedbackAudioRef = useRef(null);
 
-  // ✅ Refs to prevent infinite loops and memory leaks
+  //  Refs to prevent infinite loops and memory leaks
   const initializedForPath = useRef(null);
   const isLocalUpdate = useRef(false);
   const prevAttemptRef = useRef(0);
   const timeoutRefs = useRef([]);
 
-  // ✅ Helper to track timeouts for cleanup
+  //  Helper to track timeouts for cleanup
   const safeSetTimeout = useCallback((callback, delay) => {
     const id = setTimeout(callback, delay);
     timeoutRefs.current.push(id);
     return id;
   }, []);
 
-  // ✅ Clear all timeouts on unmount
+  // Clear all timeouts on unmount
   useEffect(() => {
     return () => {
       timeoutRefs.current.forEach(clearTimeout);
@@ -102,15 +102,15 @@ function LearningInterface() {
     setShowAnswer(false);
     setIsTransitioning(false);
     setPlacedLetters([]);
-    setError(null); // ✅ Clear errors too
+    setError(null); //  Clear errors too
   }, []);
 
-  // ✅ Full reset — used when moving to a NEW question (not resume)
+  // Full reset — used when moving to a NEW question (not resume)
   const updateCurrentQuestionInFirebase = useCallback(
     async (questionId) => {
       if (!sessionPath) return;
       try {
-        isLocalUpdate.current = true; // ✅ Mark as local update
+        isLocalUpdate.current = true; //  Mark as local update
         await update(ref(database, sessionPath), {
           currentQuestion: questionId,
           moduleId: activeModuleId,
@@ -170,7 +170,7 @@ function LearningInterface() {
       if (!sessionPath) return;
 
       setIsTransitioning(true);
-      setError(null); // ✅ Clear previous errors
+      setError(null); //  Clear previous errors
 
       if (!isResume) {
         clearAllStates();
@@ -195,7 +195,7 @@ function LearningInterface() {
             setIsTransitioning(false);
           }, TRANSITION_DELAYS.QUESTION_LOAD);
 
-          // ✅ Mark as local update before Firebase write
+          // Mark as local update before Firebase write
           isLocalUpdate.current = true;
 
           if (!isResume) {
@@ -255,10 +255,10 @@ function LearningInterface() {
         if (feedbackAudioRef.current) {
   feedbackAudioRef.current.pause();
   feedbackAudioRef.current.currentTime = 0;
-  feedbackAudioRef.current.src = "/audio/wrong.mp3";
+  feedbackAudioRef.current.src = "/audio/correct.mp3";
 
   feedbackAudioRef.current.play().catch((err) => {
-    console.error("Wrong audio error:", err);
+    console.error("Correct audio error:", err);
   });
 }
 
@@ -394,7 +394,7 @@ function LearningInterface() {
 
         console.log("questionToLoad:", questionToLoad);
 
-        // ✅ Mark as local update before Firebase write
+        // Mark as local update before Firebase write
         isLocalUpdate.current = true;
 
         // Write to Firebase first
@@ -422,13 +422,13 @@ function LearningInterface() {
         // Load question (isResume=true to preserve existing states)
         await loadQuestion(questionToLoad, true);
 
-        // ✅ Only mark as initialized on SUCCESS
+        //  Only mark as initialized on SUCCESS
         initializedForPath.current = sessionPath;
       } catch (err) {
         console.error("Init error:", err);
         setError("Ralat memulakan sesi. Sila muat semula halaman.");
         isLocalUpdate.current = false;
-        initializedForPath.current = null; // ✅ Allow retry
+        initializedForPath.current = null; // Allow retry
       }
     };
 
@@ -447,7 +447,7 @@ function LearningInterface() {
       const data = snap.val();
       setSessionState(data);
 
-      // ✅ Ignore self-triggered updates to prevent infinite loop
+      // Ignore self-triggered updates to prevent infinite loop
       if (isLocalUpdate.current) return;
 
       // Check if question changed from another source (teacher dashboard)
@@ -513,7 +513,7 @@ function LearningInterface() {
 
     return () => {
       unsub();
-      // ✅ Reset attempt counter when listener unmounts
+      // Reset attempt counter when listener unmounts
       prevAttemptRef.current = 0;
     };
   }, [
@@ -611,7 +611,7 @@ function LearningInterface() {
       <audio ref={feedbackAudioRef} hidden />
        
 
-      {/* ✅ Error Banner */}
+      {/* Error Banner */}
       {error && (
         <div className="error-banner">
           <span>⚠️ {error}</span>
@@ -650,61 +650,9 @@ function LearningInterface() {
         {/* ── MODULE 1: Phoneme ── */}
         {moduleConfig.type === "phoneme" && (
           <>
-            {/* 🔍 Mirror Confusion Alert */}
-            {sessionState?.lastAttempt?.isMirrorConfusion && (
-              <div className="mirror-alert">
-                <div className="mirror-header">
-                  <span className="icon">⚠️</span>
-                  <h3>Huruf Ini Kelihatan Hampir Sama!</h3>
-                </div>
-
-                <div className="letter-comparison">
-                  <div className="letter-box wrong">
-                    <div className="big-letter">
-                      {(
-                        sessionState.lastAttempt.scannedLetter || "?"
-                      ).toLowerCase()}
-                    </div>
-                    <div className="label">Kamu pilih</div>
-                  </div>
-
-                  <div className="vs">↔️</div>
-
-                  <div className="letter-box correct">
-                    <div className="big-letter">
-                      {(
-                        sessionState.lastAttempt.expectedLetter || "?"
-                      ).toLowerCase()}
-                    </div>
-                    <div className="label">Jawapan betul</div>
-                  </div>
-                </div>
-
-                <div className="hint-box">
-                  {(() => {
-                    const letter = sessionState.lastAttempt.expectedLetter?.toLowerCase();
-                    const hints = {
-                      b: ' Huruf "b" mempunyai perut di sebelah KANAN',
-                      d: ' Huruf "d" mempunyai perut di sebelah KIRI',
-                      p: ' Huruf "p" mempunyai kaki turun ke BAWAH',
-                      q: ' Huruf "q" mempunyai ekor turun di KANAN',
-                      m: ' Huruf "m" seperti gunung - dua puncak ke ATAS',
-                      w: ' Huruf "w" seperti lembah - dua cerun ke BAWAH',
-                      n: ' Huruf "n" garis naik ke KANAN',
-                      u: ' Huruf "u" seperti mangkuk terbuka',
-                    };
-                    return hints[letter] || "";
-                  })()}
-                </div>
-
-                <p className="try-again"> Cuba lagi dengan teliti!</p>
-              </div>
-            )}
-
             {!showHint &&
               !showAnswer &&
-              !feedback &&
-              !sessionState?.lastAttempt?.isMirrorConfusion && (
+              !feedback && (
                 <div className="discovery-mode animate-fade-in">
                   <p className="q-instruction">
                     Dengar bunyi dan pilih huruf yang betul

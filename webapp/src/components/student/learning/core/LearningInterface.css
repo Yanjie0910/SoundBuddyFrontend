@@ -184,6 +184,17 @@
   font-weight: 700;
   text-align: center;
 }
+.mirror-continue-btn {
+  margin-top: 18px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 16px;
+  background: #5db87a;
+  color: white;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
 /* ── Discovery Mode (Module 1) ── */
 .discovery-mode {

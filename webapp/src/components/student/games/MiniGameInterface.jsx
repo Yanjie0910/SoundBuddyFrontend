@@ -457,6 +457,12 @@ function MiniGameInterface() {
       <audio ref={feedbackAudioRef} />
 
       <div className="mg-header">
+        <button
+  className="mg-back-btn"
+  onClick={() => navigate("/student-dashboard")}
+>
+  ← Kembali
+</button>
         <div className="mg-title-tag">🎮 {config.name}</div>
 
         <div className="mg-progress-dots">
